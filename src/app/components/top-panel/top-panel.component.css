@@ -1,0 +1,21 @@
+.active-link {
+  font-size: 1.5rem;
+}
+a {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.title {
+  flex-grow: 1;
+  margin-inline: 2rem;
+}
+
+/* .mat-toolbar {
+}
+.mat-toolbar-row {
+} */
+
+.sidenav-container {
+  height: 100%;
+}
