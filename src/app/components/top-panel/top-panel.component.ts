@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'top-panel',
@@ -8,11 +6,6 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./top-panel.component.css'],
 })
 export class TopPanelComponent {
+  @Input() path = '';
   title = 'Project managment app';
-  path = '';
-  constructor(private router: Router) {
-    router.events
-      .pipe(filter((ev) => ev instanceof NavigationEnd))
-      .subscribe((ev) => (this.path = (ev as NavigationEnd).url));
-  }
 }
