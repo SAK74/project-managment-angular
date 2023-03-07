@@ -1,17 +1,15 @@
-<header>
-  <mat-toolbar color="primary">
-    <a routerLink="">
-      <mat-icon>home</mat-icon>
-      Home</a
-    >
-    <span class="title">{{ title }}</span>
-    <a *ngIf="path === '/' || path !== '/login'" routerLink="login">
-      <mat-icon>login</mat-icon>
-      Login</a
-    >
-    <a *ngIf="path === '/' || path !== '/signup'" routerLink="signup">
-      <mat-icon>perm_identity</mat-icon>
-      Signup</a
-    >
-  </mat-toolbar>
-</header>
+<mat-toolbar color="primary">
+  <a routerLink="">
+    <mat-icon>home</mat-icon>
+    Home</a
+  >
+  <span class="title">{{ title }}</span>
+  <a *ngIf="path === '/' || path !== '/login'" routerLink="login">
+    <mat-icon>login</mat-icon>
+    Login</a
+  >
+  <a *ngIf="path === '/' || path !== '/signup'" routerLink="signup">
+    <mat-icon>perm_identity</mat-icon>
+    Signup</a
+  >
+</mat-toolbar>

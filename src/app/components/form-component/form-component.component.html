@@ -1,0 +1,20 @@
+<h3>{{ type === "login" ? "Log in" : "Sign up" }}</h3>
+<form [formGroup]="userForm" (submit)="onSubmit(userForm.value)">
+  <mat-form-field *ngIf="type === 'signup'">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+    <mat-error *ngIf="name?.errors">{{ name?.errors | json }}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Login</mat-label>
+    <input matInput formControlName="login" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" />
+    <mat-error *ngIf="false"></mat-error>
+  </mat-form-field>
+  <button [disabled]="userForm.invalid" type="submit">Submit</button>
+</form>
+<button (click)="show()">Show</button>
+<!-- <p>{{ userForm.errors | json }}</p> -->

@@ -11,10 +11,12 @@ a {
   margin-inline: 2rem;
 }
 
-/* .mat-toolbar {
+.mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  /* backdrop-filter: blur(3px); */
 }
-.mat-toolbar-row {
-} */
 
 .sidenav-container {
   height: 100%;

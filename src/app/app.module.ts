@@ -10,12 +10,15 @@ import {
   FooterComponent,
   SignupComponent,
   HomePageComponent,
+  FormComponent,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-// import { MatSidenavModule } from '@angular/material/sidenav';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
     NotFoundComponent,
     FooterComponent,
     HomePageComponent,
+    FormComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +37,9 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
