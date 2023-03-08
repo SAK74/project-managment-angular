@@ -1,5 +1,5 @@
 <h3>{{ type === "login" ? "Log in" : "Sign up" }}</h3>
-<form [formGroup]="userForm" (submit)="onSubmit(userForm.value)">
+<form [formGroup]="userForm" (submit)="handleSubmit(userForm.value)">
   <mat-form-field *ngIf="type === 'signup'">
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" />

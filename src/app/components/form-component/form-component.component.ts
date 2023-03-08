@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -9,7 +9,7 @@ import {
   // FormBuilder,
 } from '@angular/forms';
 
-interface UserForm {
+export interface UserForm {
   login: FormControl<string | null>;
   password: FormControl<string | null>;
   name?: FormControl<string | null>;
@@ -22,7 +22,8 @@ interface UserForm {
 })
 export class FormComponent implements OnInit {
   @Input() type!: 'login' | 'signup';
-  @Input() onSubmit: (values: any) => void = this.handleSubmit;
+  // @Input() onSubmit: (values: any) => void = this.handleSubmit;
+  @Output() onSubmit = new EventEmitter<UserForm>();
   // constructor(private builder: FormBuilder) {}
   userForm = new FormGroup<UserForm>({
     login: new FormControl('', Validators.required),
@@ -43,6 +44,7 @@ export class FormComponent implements OnInit {
   }
   handleSubmit(val: any) {
     alert(JSON.stringify(val));
+    this.onSubmit.emit(val);
   }
   get name() {
     return this.userForm.get('name');
