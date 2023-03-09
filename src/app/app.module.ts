@@ -19,8 +19,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
 
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { interceptorsProviders } from './interceptors';
+import { tokenReducer } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -43,8 +47,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
+    StoreModule.forRoot({ token: tokenReducer }, {}),
+    MatRippleModule,
   ],
-  providers: [],
+  providers: [interceptorsProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

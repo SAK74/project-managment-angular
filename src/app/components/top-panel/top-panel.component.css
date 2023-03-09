@@ -1,10 +1,12 @@
 .active-link {
   font-size: 1.5rem;
 }
-a {
+a,
+.clickable {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  cursor: pointer;
 }
 .title {
   flex-grow: 1;
@@ -15,7 +17,6 @@ a {
   position: sticky;
   top: 0;
   z-index: 1;
-  /* backdrop-filter: blur(3px); */
 }
 
 .sidenav-container {

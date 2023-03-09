@@ -11,7 +11,6 @@ import { UserForm } from '../form-component/form-component.component';
 export class SignupComponent {
   constructor(private request: DataRequest) {}
   onSubmit(user: UserForm) {
-    console.log('catch in signup: ', user);
     this.request
       .signup(user)
       .subscribe((user) => console.log('registered as: ', user));

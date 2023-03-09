@@ -4,6 +4,6 @@
   <router-outlet>
     <div *ngIf="loading" class="loader">...loading!</div>
   </router-outlet>
+  <p *ngIf="isLogged">Token: {{ token }}</p>
 </div>
-
 <footer-component></footer-component>

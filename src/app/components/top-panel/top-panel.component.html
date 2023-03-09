@@ -4,12 +4,20 @@
     Home</a
   >
   <span class="title">{{ title }}</span>
-  <a *ngIf="path === '/' || path !== '/login'" routerLink="login">
-    <mat-icon>login</mat-icon>
-    Login</a
-  >
-  <a *ngIf="path === '/' || path !== '/signup'" routerLink="signup">
-    <mat-icon>perm_identity</mat-icon>
-    Signup</a
-  >
+  <div *ngIf="!isLogged; else logged">
+    <a *ngIf="path === '/' || path !== '/login'" routerLink="login" cas>
+      <mat-icon>login</mat-icon>
+      Login</a
+    >
+    <a *ngIf="path === '/' || path !== '/signup'" routerLink="signup">
+      <mat-icon>perm_identity</mat-icon>
+      Signup</a
+    >
+  </div>
+  <ng-template #logged>
+    <div matRipple class="clickable" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </div>
+  </ng-template>
 </mat-toolbar>
