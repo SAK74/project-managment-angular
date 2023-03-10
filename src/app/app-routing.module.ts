@@ -5,6 +5,8 @@ import {
   SignupComponent,
   LoginComponent,
   HomePageComponent,
+  UsersComponent,
+  BoardsComponent,
 } from './components';
 
 const routes: Routes = [
@@ -15,6 +17,11 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
+  },
+  { path: 'users', component: UsersComponent },
+  {
+    path: 'boards',
+    component: BoardsComponent,
   },
   {
     path: '',

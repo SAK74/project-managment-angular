@@ -3,4 +3,5 @@ export interface StoreType {
     token: string;
     isLogged: boolean;
   };
+  user: string;
 }

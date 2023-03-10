@@ -15,6 +15,7 @@
     <mat-error *ngIf="false"></mat-error>
   </mat-form-field>
   <button [disabled]="userForm.invalid" type="submit">Submit</button>
+  <button [disabled]="userForm.pristine" (click)="clear()">Clear</button>
 </form>
-<button (click)="show()">Show</button>
+<!-- <button (click)="show()">Show</button> -->
 <!-- <p>{{ userForm.errors | json }}</p> -->

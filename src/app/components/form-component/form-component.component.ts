@@ -4,10 +4,11 @@ import {
   FormControl,
   FormGroup,
   ValidationErrors,
-  ValidatorFn,
   Validators,
   // FormBuilder,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { StoreType } from 'src/app/store/model';
 
 export interface UserForm {
   login: FormControl<string | null>;
@@ -23,7 +24,7 @@ export interface UserForm {
 export class FormComponent implements OnInit {
   @Input() type!: 'login' | 'signup';
   @Output() onSubmit = new EventEmitter<UserForm>();
-  // constructor(private builder: FormBuilder) {}
+  constructor(private store: Store<StoreType>) {}
   userForm = new FormGroup<UserForm>({
     login: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, pasValidator]),
@@ -35,6 +36,10 @@ export class FormComponent implements OnInit {
         'name',
         new FormControl('', Validators.required)
       );
+    } else {
+      this.store
+        .select('user')
+        .subscribe((user) => this.userForm.patchValue({ login: user }));
     }
   }
   show() {
@@ -45,6 +50,9 @@ export class FormComponent implements OnInit {
   }
   get name() {
     return this.userForm.get('name');
+  }
+  clear() {
+    this.userForm.reset();
   }
 }
 

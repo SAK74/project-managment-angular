@@ -9,6 +9,7 @@ import { UserForm } from '../components';
 
 const SERVER = 'http://192.168.0.55:3000';
 const AUTHURL = new URL('auth', SERVER).toString();
+const USERURL = new URL('users', SERVER).toString();
 const headers = new HttpHeaders({ 'Content-type': 'application/json' });
 interface SignResponseType {
   name: string;
@@ -30,6 +31,10 @@ export class DataRequest {
     return this.http
       .post<{ token: string }>(AUTHURL + '/signin', user, { headers })
       .pipe(catchError(this.handleError));
+  }
+
+  getUsers() {
+    return this.http.get(USERURL).pipe(catchError(this.handleError));
   }
 
   handleError(err: HttpErrorResponse) {

@@ -11,6 +11,8 @@ import {
   SignupComponent,
   HomePageComponent,
   FormComponent,
+  UsersComponent,
+  BoardsComponent,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,7 +26,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { interceptorsProviders } from './interceptors';
-import { tokenReducer } from './store/reducers';
+import { tokenReducer, userReducer } from './store/reducers';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { tokenReducer } from './store/reducers';
     FooterComponent,
     HomePageComponent,
     FormComponent,
+    UsersComponent,
+    BoardsComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,7 @@ import { tokenReducer } from './store/reducers';
     MatFormFieldModule,
     MatInputModule,
     HttpClientModule,
-    StoreModule.forRoot({ token: tokenReducer }, {}),
+    StoreModule.forRoot({ token: tokenReducer, user: userReducer }, {}),
     MatRippleModule,
   ],
   providers: [interceptorsProviders],
