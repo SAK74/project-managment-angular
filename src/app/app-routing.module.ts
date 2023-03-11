@@ -7,6 +7,7 @@ import {
   HomePageComponent,
   UsersComponent,
   BoardsComponent,
+  SingleBoard,
 } from './components';
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
     component: SignupComponent,
   },
   { path: 'users', component: UsersComponent },
+  {
+    path: 'boards/:id',
+    component: SingleBoard,
+  },
   {
     path: 'boards',
     component: BoardsComponent,

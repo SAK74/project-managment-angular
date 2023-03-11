@@ -1,0 +1,15 @@
+<!-- <p *ngIf="boards">Boards: {{ boards | json }}</p> -->
+<div class="container">
+  <mat-card *ngFor="let board of boards">
+    <mat-card-header>{{ board.title }}</mat-card-header>
+    <mat-card-content>Owner: {{ board.owner }}</mat-card-content>
+    <mat-card-actions>
+      <button mat-mini-fab (click)="handleEdit(board._id)">
+        <mat-icon>mode_edit</mat-icon>
+      </button>
+      <button mat-mini-fab (click)="handleDelete(board._id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

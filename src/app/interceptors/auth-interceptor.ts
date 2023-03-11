@@ -19,7 +19,6 @@ export class Authorization implements HttpInterceptor {
     const path = new URL(req.url).pathname;
     if (!path.startsWith('/auth')) {
       return this.store.select('token').pipe(
-        // tap(console.log),
         mergeMap(({ token, isLogged }) => {
           const copyReq: HttpRequest<any> = isLogged
             ? req.clone({

@@ -22,3 +22,7 @@ a,
 .sidenav-container {
   height: 100%;
 }
+
+*[matRipple] {
+  cursor: pointer;
+}

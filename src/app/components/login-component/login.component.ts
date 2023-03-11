@@ -20,6 +20,11 @@ export class LoginComponent {
   onSubmit(user: UserForm) {
     this.request.login(user).subscribe(({ token }) => {
       this.store.dispatch(setToken({ token }));
+
+      window.sessionStorage.setItem('token', token); //
+      window.sessionStorage.setItem('user', user.login as unknown as string); // temporary
+      window.sessionStorage.setItem('logged', 'true'); //
+
       this.route.navigateByUrl('users');
     });
   }

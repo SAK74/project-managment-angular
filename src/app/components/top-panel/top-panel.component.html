@@ -15,9 +15,14 @@
     >
   </div>
   <ng-template #logged>
-    <div matRipple class="clickable" (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      Logout
-    </div>
+    <a routerLink="boards">Boards</a>
+    <mat-icon matRipple [matMenuTriggerFor]="mat_menu">account_circle</mat-icon>
+    <mat-menu #mat_menu>
+      <div>{{ user$ | async }}</div>
+      <div matRipple class="clickable" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Logout
+      </div>
+    </mat-menu>
   </ng-template>
 </mat-toolbar>

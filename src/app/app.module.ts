@@ -13,6 +13,7 @@ import {
   FormComponent,
   UsersComponent,
   BoardsComponent,
+  SingleBoard,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -22,6 +23,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
+import { MatMenuModule } from '@angular/material/menu';
+// import {MatSidenavModule} from '@angular/material/sidenav',
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
@@ -40,6 +45,7 @@ import { tokenReducer, userReducer } from './store/reducers';
     FormComponent,
     UsersComponent,
     BoardsComponent,
+    SingleBoard,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +59,10 @@ import { tokenReducer, userReducer } from './store/reducers';
     HttpClientModule,
     StoreModule.forRoot({ token: tokenReducer, user: userReducer }, {}),
     MatRippleModule,
+    MatMenuModule,
+    // MatSidenavModule,
+    MatCardModule,
+    MatButtonModule,
   ],
   providers: [interceptorsProviders],
   bootstrap: [AppComponent],
