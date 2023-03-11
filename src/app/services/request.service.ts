@@ -5,11 +5,14 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { BoardType, UserForm } from '../components';
+import { BoardType, ColumnType, UserForm } from '../components';
+import { TaskType } from '../components/task-component/task.component';
 
 const SERVER = 'http://192.168.0.55:3000';
+
 const AUTHURL = new URL('auth', SERVER).toString();
 const boardsURL = new URL('boards', SERVER).toString();
+
 const headers = new HttpHeaders({ 'Content-type': 'application/json' });
 
 interface SignResponseType {
@@ -39,15 +42,37 @@ export class DataRequest {
     return this.http.get(USERURL).pipe(catchError(this.handleError));
   }
 
-  getBoards<T>(id?: string) {
+  getBoards() {
     return this.http
-      .get<T>(id ? boardsURL + `/${id}` : boardsURL)
+      .get<BoardType[]>(boardsURL)
       .pipe(catchError(this.handleError));
   }
 
   deleteBoard(id: string) {
     return this.http.delete(boardsURL + `/${id}`);
   }
+
+  getColumns(id: string) {
+    return this.http.get<ColumnType[]>(boardsURL + `/${id}/columns`);
+  }
+  addColumn(boardId: string, title: string) {
+    return this.http.post<ColumnType>(
+      boardsURL + `/${boardId}/columns`,
+      {
+        title,
+        order: 0,
+      },
+      { headers }
+    );
+  }
+
+  getTasks(boardId: string, columnId: string) {
+    return this.http.get<TaskType[]>(
+      boardsURL + `/${boardId}/columns/${columnId}/tasks`
+    );
+  }
+
+  addTask() {}
 
   handleError(err: HttpErrorResponse) {
     console.log(err);

@@ -2,16 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { DataRequest } from 'src/app/services/request.service';
-import { BoardType } from '../boards-list/boards.component';
+import { TaskComponent } from '../task-component/task.component';
+
+export interface ColumnType {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+}
 
 @Component({
   selector: 'single-board',
   templateUrl: './board.component.html',
+  styleUrls: ['./board.component.css'],
   providers: [DataRequest],
+  // imports:[TaskComponent]
 })
 export class SingleBoard implements OnInit {
-  id?: string;
-  board?: BoardType;
+  id = '';
+  columns: ColumnType[] | null = null;
   constructor(private route: ActivatedRoute, private request: DataRequest) {
     console.log(route);
     route.params.pipe(tap(console.log)).subscribe(({ id }) => (this.id = id));
@@ -19,7 +28,13 @@ export class SingleBoard implements OnInit {
   }
   ngOnInit(): void {
     this.request
-      .getBoards<BoardType>(this.id)
-      .subscribe((board) => (this.board = board));
+      .getColumns(this.id!)
+      .subscribe((columns) => (this.columns = columns));
+  }
+
+  addColumn(title: string) {
+    this.request
+      .addColumn(this.id, title)
+      .subscribe((column) => this.columns?.unshift(column));
   }
 }

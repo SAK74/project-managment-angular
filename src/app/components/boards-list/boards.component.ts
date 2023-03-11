@@ -18,9 +18,7 @@ export class BoardsComponent implements OnInit {
   boards: BoardType[] | null = null;
   constructor(private request: DataRequest, private route: Router) {}
   ngOnInit(): void {
-    this.request
-      .getBoards<BoardType[]>()
-      .subscribe((boards) => (this.boards = boards));
+    this.request.getBoards().subscribe((boards) => (this.boards = boards));
   }
   handleDelete(id: string) {
     console.log(id);

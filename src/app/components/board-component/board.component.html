@@ -1,1 +1,17 @@
-<div>{{ board | json }}</div>
+<!-- <div>{{ columns | json }}</div> -->
+<div class="container">
+  <mat-card class="add-new" (click)="addColumn('example column')">
+    <mat-card-content>
+      <mat-icon>add_circle</mat-icon>
+    </mat-card-content>
+  </mat-card>
+  <mat-card *ngFor="let column of columns">
+    <mat-card-header>{{ column.title }}</mat-card-header>
+    <mat-card-content
+      >content...
+      <ul>
+        <task-component [boardId]="id" [columnId]="column._id"></task-component>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</div>

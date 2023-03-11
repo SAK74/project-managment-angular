@@ -14,6 +14,7 @@ import {
   UsersComponent,
   BoardsComponent,
   SingleBoard,
+  TaskComponent,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -46,6 +47,7 @@ import { tokenReducer, userReducer } from './store/reducers';
     UsersComponent,
     BoardsComponent,
     SingleBoard,
+    TaskComponent,
   ],
   imports: [
     BrowserModule,
