@@ -8,10 +8,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SnackBarComponent {
   constructor(private snackBar: MatSnackBar) {}
-  showSucces(message: string) {
-    this.snackBar.open(message, 'X');
+  show(message: string) {
+    this.snackBar.open(message, 'X', { duration: 3000 });
   }
-  showError(message: string) {
-    this.snackBar.open(message, '╳');
-  }
+  // showError(message: string) {
+  //   this.snackBar.open(message, '╳');
+  // }
 }

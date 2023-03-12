@@ -28,6 +28,6 @@ export class TopPanelComponent {
   }
   logout() {
     this.store.dispatch(logout());
-    this.snackBar.showSucces('Logout!!!!!!');
+    this.snackBar.show('Logout!!!!!!');
   }
 }

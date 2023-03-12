@@ -8,3 +8,8 @@
 mat-card-content {
   border: thin solid gray;
 }
+
+mat-icon.trash {
+  font-size: 2rem;
+  overflow: visible;
+}

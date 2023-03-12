@@ -93,6 +93,12 @@ export class DataRequest {
       headers,
     });
   }
+
+  deleteTask(boardId: string, columnId: string, taskId: string) {
+    return this.http.delete<TaskType>(
+      boardsURL + `/${boardId}/columns/${columnId}/tasks/${taskId}`
+    );
+  }
   getUserId() {}
 
   handleError(err: HttpErrorResponse) {

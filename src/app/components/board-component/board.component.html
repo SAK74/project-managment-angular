@@ -12,7 +12,12 @@
       (drop)="handleDrop($event, column._id)"
       >content...
       <task-component [boardId]="id" [columnId]="column._id"></task-component>
-      <!-- <button>add task</button> -->
     </mat-card-content>
   </mat-card>
 </div>
+<mat-icon
+  class="trash"
+  (dragover)="dragOver($event)"
+  (drop)="deleteTask($event)"
+  >delete</mat-icon
+>
