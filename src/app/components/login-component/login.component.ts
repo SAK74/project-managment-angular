@@ -21,11 +21,17 @@ export class LoginComponent {
     this.request.login(user).subscribe(({ token }) => {
       this.store.dispatch(setToken({ token }));
 
+      // get user id
+
       window.sessionStorage.setItem('token', token); //
-      window.sessionStorage.setItem('user', user.login as unknown as string); // temporary
+      // set user params
+      window.sessionStorage.setItem(
+        'user',
+        JSON.stringify({ login: user.login })
+      ); // temporary
       window.sessionStorage.setItem('logged', 'true'); //
 
-      this.route.navigateByUrl('users');
+      this.route.navigateByUrl('boards');
     });
   }
 }

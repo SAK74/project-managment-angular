@@ -9,9 +9,8 @@
     <mat-card-header>{{ column.title }}</mat-card-header>
     <mat-card-content
       >content...
-      <ul>
-        <task-component [boardId]="id" [columnId]="column._id"></task-component>
-      </ul>
+      <task-component [boardId]="id" [columnId]="column._id"></task-component>
+      <!-- <button>add task</button> -->
     </mat-card-content>
   </mat-card>
 </div>

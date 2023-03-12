@@ -14,7 +14,12 @@ export interface TaskType {
 
 @Component({
   selector: 'task-component',
-  template: ` <li *ngFor="let task of tasks"></li> `,
+  template: `<ul>
+      <li *ngFor="let task of tasks">{{ task.title }}</li>
+    </ul>
+    <button (click)="addTask('new task', 'new description')">
+      add task
+    </button> `,
   // standalone: true,
 })
 export class TaskComponent implements OnInit {
@@ -27,5 +32,15 @@ export class TaskComponent implements OnInit {
     this.request
       .getTasks(this.boardId, this.columnId)
       .subscribe((tasks) => (this.tasks = [...tasks]));
+  }
+  addTask(title: string, description: string) {
+    this.request
+      .addTask(this.boardId, this.columnId, {
+        title,
+        order: 0,
+        description,
+        users: [],
+      })
+      .subscribe((task) => this.tasks?.push(task));
   }
 }

@@ -12,9 +12,10 @@ export const tokenReducer = createReducer(
   on(logout, () => ({ token: '', isLogged: false }))
 );
 
-const initialUser = window.sessionStorage.getItem('user') || '';
+// const initialUser = JSON.parse(window.sessionStorage.getItem('user')|| '');
+const initialUser = { login: 'exampled user', id: 'exampled_id' };
 export const userReducer = createReducer(
   // '',
-  initialUser,
-  on(setUser, (state, { user }) => user)
+  initialUser
+  // on(setUser, (state, { user }) => user)
 );

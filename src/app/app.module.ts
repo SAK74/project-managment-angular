@@ -28,6 +28,7 @@ import { MatMenuModule } from '@angular/material/menu';
 // import {MatSidenavModule} from '@angular/material/sidenav',
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
@@ -65,6 +66,7 @@ import { tokenReducer, userReducer } from './store/reducers';
     // MatSidenavModule,
     MatCardModule,
     MatButtonModule,
+    MatSnackBarModule,
   ],
   providers: [interceptorsProviders],
   bootstrap: [AppComponent],

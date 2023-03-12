@@ -72,7 +72,22 @@ export class DataRequest {
     );
   }
 
-  addTask() {}
+  addTask(
+    boardId: string,
+    columnId: string,
+    task: Omit<TaskType, 'boardId' | 'columnId' | 'userId' | '_id'>
+  ) {
+    return this.http.post<TaskType>(
+      boardsURL + `/${boardId}/columns/${columnId}/tasks`,
+      {
+        ...task,
+        userId: '',
+      },
+      { headers }
+    );
+  }
+
+  getUserId() {}
 
   handleError(err: HttpErrorResponse) {
     console.log(err);

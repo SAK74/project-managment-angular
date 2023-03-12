@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
     } else {
       this.store
         .select('user')
-        .subscribe((user) => this.userForm.patchValue({ login: user }));
+        .subscribe(({ login }) => this.userForm.patchValue({ login }));
     }
   }
   show() {

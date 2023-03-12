@@ -3,5 +3,8 @@ export interface StoreType {
     token: string;
     isLogged: boolean;
   };
-  user: string;
+  user: {
+    login: string;
+    id: string;
+  };
 }
