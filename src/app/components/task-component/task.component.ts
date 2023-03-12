@@ -15,11 +15,24 @@ export interface TaskType {
 @Component({
   selector: 'task-component',
   template: `<ul>
-      <li *ngFor="let task of tasks">{{ task.title }}</li>
+      <li
+        *ngFor="let task of tasks"
+        draggable="true"
+        (dragstart)="dragStart($event, task._id)"
+      >
+        {{ task.title }}
+      </li>
     </ul>
     <button (click)="addTask('new task', 'new description')">
       add task
     </button> `,
+  styles: [
+    `
+      li[draggable] {
+        cursor: grab;
+      }
+    `,
+  ],
   // standalone: true,
 })
 export class TaskComponent implements OnInit {
@@ -27,7 +40,10 @@ export class TaskComponent implements OnInit {
   @Input() columnId!: string;
 
   tasks: TaskType[] | null = null;
-  constructor(private request: DataRequest) {}
+  count: number;
+  constructor(private request: DataRequest) {
+    this.count = 1;
+  }
   ngOnInit(): void {
     this.request
       .getTasks(this.boardId, this.columnId)
@@ -36,11 +52,17 @@ export class TaskComponent implements OnInit {
   addTask(title: string, description: string) {
     this.request
       .addTask(this.boardId, this.columnId, {
-        title,
+        title: title + (this.count++).toString(),
         order: 0,
         description,
         users: [],
       })
       .subscribe((task) => this.tasks?.push(task));
+  }
+
+  dragStart(ev: DragEvent, id: string) {
+    ev.dataTransfer?.setData('task_id', id);
+    ev.dataTransfer?.setData('column_id', this.columnId);
+    console.log('start', ev, id);
   }
 }

@@ -4,3 +4,7 @@
 .container {
   display: flex;
 }
+
+mat-card-content {
+  border: thin solid gray;
+}

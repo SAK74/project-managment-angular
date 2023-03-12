@@ -12,6 +12,7 @@ const SERVER = 'http://192.168.0.55:3000';
 
 const AUTHURL = new URL('auth', SERVER).toString();
 const boardsURL = new URL('boards', SERVER).toString();
+const tasksURL = new URL('tasksSet', SERVER).toString();
 
 const headers = new HttpHeaders({ 'Content-type': 'application/json' });
 
@@ -87,6 +88,11 @@ export class DataRequest {
     );
   }
 
+  setTask(_id: string, order: number, columnId: string) {
+    return this.http.patch<TaskType>(tasksURL, [{ _id, order, columnId }], {
+      headers,
+    });
+  }
   getUserId() {}
 
   handleError(err: HttpErrorResponse) {
