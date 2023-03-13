@@ -13,7 +13,7 @@ export class ExampleInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log('interceptor: ', req);
+    // console.log('interceptor: ', req);
     return next.handle(req);
   }
 }

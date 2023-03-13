@@ -6,8 +6,6 @@ import {
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { BoardType, ColumnType, UserForm, TaskType } from '../components';
-// import { SpinnerService } from './spinner.service';
-// import { TaskType } from '../components/task-component/task.component';
 
 const SERVER = 'http://192.168.0.55:3000';
 
@@ -52,6 +50,12 @@ export class DataRequest {
 
   deleteBoard(id: string) {
     return this.http.delete(boardsURL + `/${id}`);
+  }
+
+  updateBoard(boardId: string, board: Omit<BoardType, '_id'>) {
+    return this.http.put<BoardType>(boardsURL + `/${boardId}`, board, {
+      headers,
+    });
   }
 
   getColumns(id: string) {

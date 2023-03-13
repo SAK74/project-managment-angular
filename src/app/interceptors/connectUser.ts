@@ -18,7 +18,7 @@ export class UserConnectInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const path = new URL(req.url).pathname;
     if (/tasks(?!Set)/.test(path)) {
-      console.log('add user interceptor');
+      // console.log('add user interceptor');
       return this.store.select('user').pipe(
         mergeMap(({ id }) => {
           const copyReq = req.clone({ body: { ...req.body, userId: id } });

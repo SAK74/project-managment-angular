@@ -8,10 +8,10 @@ export class SpinnerService {
   // }
   start() {
     this.isLoading = true;
-    console.log('start', this.isLoading);
+    // console.log('start', this.isLoading);
   }
   stop() {
-    console.log('stop');
+    // console.log('stop');
     this.isLoading = false;
   }
 }

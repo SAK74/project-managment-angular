@@ -15,16 +15,17 @@ export class SetSpinnerInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     // console.log('spinner interceptor');
     this.spinner.start();
-    console.log('spinner interceptor', req);
+    // console.log('spinner interceptor', req);
     return next.handle(req).pipe(
       tap({
         next: (ev) => {
-          console.log('next: ', ev);
+          // console.log('next: ', ev);
           this.spinner.stop();
         },
+        complete: () => console.log('complete'),
       }),
       finalize(() => {
-        console.log('finalize');
+        // console.log('finalize');
         // this.spinner.stop();
       })
     );

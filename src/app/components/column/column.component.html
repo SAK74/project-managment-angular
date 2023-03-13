@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <title-component
+      [title]="column.title"
+      (titleChange)="onSubmit($event)"
+    ></title-component>
+  </mat-card-header>
+  <mat-card-content>
+    <task-component
+      [boardId]="boardId"
+      [columnId]="column._id"
+    ></task-component>
+  </mat-card-content>
+</mat-card>

@@ -16,6 +16,8 @@ import {
   SingleBoard,
   TaskComponent,
   SpinnerComponent,
+  ColumnComponent,
+  TitleComponent,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -53,6 +55,8 @@ import { SpinnerService } from './services/spinner.service';
     SingleBoard,
     TaskComponent,
     SpinnerComponent,
+    ColumnComponent,
+    TitleComponent,
   ],
   imports: [
     BrowserModule,

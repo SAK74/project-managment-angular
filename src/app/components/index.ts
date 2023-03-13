@@ -10,3 +10,5 @@ export * from './boards-list/boards.component';
 export * from './board-component/board.component';
 export * from './task-component/task.component';
 export * from './spinner/spinner.component';
+export * from './column/column.component';
+export * from './title-component/title.component';

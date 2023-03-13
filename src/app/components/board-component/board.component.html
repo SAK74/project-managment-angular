@@ -1,19 +1,17 @@
-<!-- <div>{{ columns | json }}</div> -->
 <div class="container">
   <mat-card class="add-new" (click)="addColumn('example column')">
     <mat-card-content>
       <mat-icon>add_circle</mat-icon>
     </mat-card-content>
   </mat-card>
-  <mat-card *ngFor="let column of columns">
-    <mat-card-header>{{ column.title }}</mat-card-header>
-    <mat-card-content
-      (dragover)="dragOver($event)"
-      (drop)="handleDrop($event, column._id)"
-      >content...
-      <task-component [boardId]="id" [columnId]="column._id"></task-component>
-    </mat-card-content>
-  </mat-card>
+
+  <column-component
+    *ngFor="let column of columns"
+    [boardId]="id"
+    [column]="column"
+    (dragover)="dragOver($event)"
+    (drop)="handleDrop($event, column._id)"
+  ></column-component>
 </div>
 <mat-icon
   class="trash"

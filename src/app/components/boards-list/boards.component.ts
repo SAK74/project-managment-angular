@@ -31,4 +31,12 @@ export class BoardsComponent implements OnInit {
   handleEdit(id: string) {
     this.route.navigate(['boards', id]);
   }
+  handleTitleChange(title: string, { owner, users, _id }: BoardType) {
+    this.request
+      .updateBoard(_id, { owner, users, title })
+      .subscribe((board) => {
+        const idx = this.boards!.findIndex((el) => el._id === board._id);
+        this.boards![idx] = board;
+      });
+  }
 }

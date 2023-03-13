@@ -33,7 +33,6 @@ export interface TaskType {
       }
     `,
   ],
-  // standalone: true,
 })
 export class TaskComponent implements OnInit {
   @Input() boardId!: string;

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { logout } from 'src/app/store/actions';
@@ -9,7 +10,6 @@ import { SnackBarComponent } from '../snack-bars/snack-bar.component';
   selector: 'top-panel',
   templateUrl: './top-panel.component.html',
   styleUrls: ['./top-panel.component.css'],
-  // imports:[SnackBarComponent],
   providers: [SnackBarComponent],
 })
 export class TopPanelComponent {
@@ -19,7 +19,8 @@ export class TopPanelComponent {
   user$: Observable<string>;
   constructor(
     private store: Store<StoreType>,
-    private snackBar: SnackBarComponent
+    private snackBar: SnackBarComponent,
+    private router: Router
   ) {
     store.select('token').subscribe(({ isLogged }) => {
       this.isLogged = isLogged;
@@ -29,5 +30,6 @@ export class TopPanelComponent {
   logout() {
     this.store.dispatch(logout());
     this.snackBar.show('Logout!!!!!!');
+    this.router.navigateByUrl('/');
   }
 }
