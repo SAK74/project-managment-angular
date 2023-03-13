@@ -1,8 +1,10 @@
 <top-panel [path]="routePath"></top-panel>
+<mat-toolbar-row></mat-toolbar-row>
 
 <div class="outlet-container">
   <router-outlet>
-    <div *ngIf="loading" class="loader">...loading!</div>
+    <div *ngIf="loading" class="loader"><mat-spinner></mat-spinner></div>
+    <spinner-component></spinner-component>
   </router-outlet>
   <!-- <p *ngIf="isLogged">Token: {{ token }}</p> -->
 </div>

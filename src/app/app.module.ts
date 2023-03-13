@@ -15,6 +15,7 @@ import {
   BoardsComponent,
   SingleBoard,
   TaskComponent,
+  SpinnerComponent,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,11 +30,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { interceptorsProviders } from './interceptors';
 import { tokenReducer, userReducer } from './store/reducers';
+import { SpinnerService } from './services/spinner.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,7 @@ import { tokenReducer, userReducer } from './store/reducers';
     BoardsComponent,
     SingleBoard,
     TaskComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,8 +71,9 @@ import { tokenReducer, userReducer } from './store/reducers';
     MatCardModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [interceptorsProviders],
+  providers: [interceptorsProviders, SpinnerService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -9,3 +9,4 @@ export * from './users/users.component';
 export * from './boards-list/boards.component';
 export * from './board-component/board.component';
 export * from './task-component/task.component';
+export * from './spinner/spinner.component';

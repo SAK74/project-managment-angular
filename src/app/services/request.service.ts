@@ -5,8 +5,9 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { BoardType, ColumnType, UserForm } from '../components';
-import { TaskType } from '../components/task-component/task.component';
+import { BoardType, ColumnType, UserForm, TaskType } from '../components';
+// import { SpinnerService } from './spinner.service';
+// import { TaskType } from '../components/task-component/task.component';
 
 const SERVER = 'http://192.168.0.55:3000';
 
@@ -63,6 +64,30 @@ export class DataRequest {
         title,
         order: 0,
       },
+      { headers }
+    );
+  }
+
+  deleteColumn(boardId: string, columnId: string) {
+    return this.http.delete(boardsURL + `/${boardId}/columns/${columnId}`);
+  }
+
+  updateColumn(
+    boardId: string,
+    columnId: string,
+    column: Pick<ColumnType, 'order' | 'title'>
+  ) {
+    return this.http.put<ColumnType>(
+      boardsURL + `/${boardId}/columns/${columnId}`,
+      column,
+      { headers }
+    );
+  }
+
+  setColumn(_id: string, order: number) {
+    return this.http.patch(
+      new URL('columnsSet', SERVER).toString(),
+      { _id, order },
       { headers }
     );
   }
