@@ -13,3 +13,7 @@ mat-icon.trash {
   font-size: 2rem;
   overflow: visible;
 }
+
+/* .cdk-drag {
+  cursor: grab;
+} */

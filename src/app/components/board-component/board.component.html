@@ -18,12 +18,9 @@
     [boardId]="id"
     [column]="column"
     cdkDrag
-    [cdkDragData]="column"
+    [cdkDragData]="column._id"
   ></column-component>
 </div>
-<mat-icon
-  class="trash"
-  (dragover)="dragOver($event)"
-  (drop)="deleteTask($event)"
+<mat-icon class="trash" cdkDropList (cdkDropListDropped)="deleteTask($event)"
   >delete</mat-icon
 >

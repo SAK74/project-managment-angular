@@ -5,6 +5,7 @@ import { ColumnType } from '../board-component/board.component';
 @Component({
   selector: 'column-component',
   templateUrl: './column.component.html',
+  styleUrls: ['./column.component.css'],
 })
 export class ColumnComponent implements OnInit {
   @Input() boardId!: string;

@@ -59,17 +59,31 @@ export class TaskComponent implements OnInit {
     console.log('start', ev, id);
   }
 
-  drop(ev: CdkDragDrop<TaskType[]>) {
+  drop(ev: CdkDragDrop<TaskType[], TaskType[], TaskType>) {
     console.log(ev);
-    if (ev.previousContainer === ev.container) {
-      moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
-    } else {
-      transferArrayItem(
-        ev.previousContainer.data,
-        ev.container.data,
-        ev.previousIndex,
-        ev.currentIndex
-      );
-    }
+    this.request
+      .setTask(ev.item.data._id, ev.currentIndex, this.columnId)
+      .subscribe((task) => {
+        if (ev.previousContainer === ev.container) {
+          moveItemInArray(ev.container.data, ev.previousIndex, task.order);
+        } else {
+          transferArrayItem(
+            ev.previousContainer.data,
+            ev.container.data,
+            ev.previousIndex,
+            ev.currentIndex
+          );
+        }
+      });
+    // if (ev.previousContainer === ev.container) {
+    //   moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
+    // } else {
+    //   transferArrayItem(
+    //     ev.previousContainer.data,
+    //     ev.container.data,
+    //     ev.previousIndex,
+    //     ev.currentIndex
+    //   );
+    // }
   }
 }

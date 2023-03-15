@@ -89,7 +89,7 @@ export class DataRequest {
   }
 
   setColumn(_id: string, order: number) {
-    return this.http.patch(
+    return this.http.patch<ColumnType>(
       new URL('columnsSet', SERVER).toString(),
       { _id, order },
       { headers }
