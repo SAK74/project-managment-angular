@@ -25,7 +25,7 @@ export class SetSpinnerInterceptor implements HttpInterceptor {
         complete: () => console.log('complete'),
       }),
       finalize(() => {
-        // console.log('finalize');
+        console.log('finalize');
         // this.spinner.stop();
       })
     );

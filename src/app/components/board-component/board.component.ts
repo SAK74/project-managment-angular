@@ -1,12 +1,6 @@
-import {
-  CdkDrag,
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { tap } from 'rxjs/operators';
 import { DataRequest } from 'src/app/services/request.service';
 import { SnackBarComponent } from '../snack-bars/snack-bar.component';
 import { TaskType } from '../tasks-list/tasks-list.component';
@@ -32,12 +26,14 @@ export class SingleBoard implements OnInit {
     private request: DataRequest,
     private snackBar: SnackBarComponent
   ) {
-    route.params.pipe(tap(console.log)).subscribe(({ id }) => (this.id = id));
+    route.params.subscribe(({ id }) => (this.id = id));
   }
   ngOnInit(): void {
     this.request
       .getColumns(this.id!)
-      .subscribe((columns) => (this.columns = columns));
+      .subscribe(
+        (columns) => (this.columns = columns.sort((a, b) => a.order - b.order))
+      );
   }
 
   addColumn(title: string) {
@@ -46,19 +42,8 @@ export class SingleBoard implements OnInit {
       .subscribe((column) => this.columns?.unshift(column));
   }
 
-  // dragOver(ev: DragEvent) {
-  //   ev.preventDefault();
-  // }
-  // handleDrop(ev: DragEvent, columnId: string) {
-  //   const sourceTaskId = ev.dataTransfer!.getData('task_id');
-  //   const sourceColumnId = ev.dataTransfer?.getData('column_id');
-  //   this.request.setTask(sourceTaskId, 0, columnId).subscribe((task) => {
-  //     this.ngOnInit();
-  //   });
-  // }
-
   deleteTask(ev: CdkDragDrop<TaskType>) {
-    console.log(ev);
+    console.log('Trash', ev);
     // const sourceTaskId = ev.dataTransfer!.getData('task_id');
     // const sourceColumnId = ev.dataTransfer!.getData('column_id');
     // this.request
@@ -70,22 +55,13 @@ export class SingleBoard implements OnInit {
   }
   checkElement(el: CdkDrag<any>) {
     return !el.data.columnId;
-    // return false;
   }
-  dropColumn(ev: CdkDragDrop<any>) {
-    console.log(ev);
-    this.request.setColumn(ev.item.data, ev.currentIndex).subscribe((col) => {
-      moveItemInArray(ev.container.data, ev.previousIndex, col.order);
-    });
 
-    // if (ev.previousContainer === ev.container) {
-    // } else {
-    //   transferArrayItem(
-    //     ev.previousContainer.data,
-    //     ev.container.data,
-    //     ev.previousIndex,
-    //     ev.currentIndex
-    //   );
-    // }
+  dropColumn(ev: CdkDragDrop<ColumnType[], ColumnType[], string>) {
+    console.log('Board: ', ev);
+    this.request.setColumn(ev.item.data, ev.currentIndex).subscribe((col) => {
+      // console.log(col);
+      moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
+    });
   }
 }

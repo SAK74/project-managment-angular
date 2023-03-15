@@ -36,36 +36,36 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {
     this.request
       .getTasks(this.boardId, this.columnId)
-      .subscribe((tasks) => (this.tasks = [...tasks]));
-    // for (let i = 0; i < this.colLength; i += 1) {
-    //   this.dropContainersIds.push('cdk-drop-list-' + i);
-    // }
-    // console.log(this.dropContainersIds);
+      .subscribe(
+        (tasks) => (this.tasks = tasks.sort((a, b) => a.order - b.order))
+      );
   }
   addTask(title: string, description: string) {
     this.request
       .addTask(this.boardId, this.columnId, {
         title: title + (this.count++).toString(),
-        order: 0,
+        order: this.tasks.length,
         description,
         users: [],
       })
       .subscribe((task) => this.tasks?.push(task));
   }
 
-  dragStart(ev: DragEvent, id: string) {
-    ev.dataTransfer?.setData('task_id', id);
-    ev.dataTransfer?.setData('column_id', this.columnId);
-    console.log('start', ev, id);
-  }
-
-  drop(ev: CdkDragDrop<TaskType[], TaskType[], TaskType>) {
-    console.log(ev);
+  delTask(id: string) {
     this.request
-      .setTask(ev.item.data._id, ev.currentIndex, this.columnId)
-      .subscribe((task) => {
+      .deleteTask(this.boardId, this.columnId, id)
+      .subscribe(
+        (task) => (this.tasks = this.tasks.filter((el) => el._id !== task._id))
+      );
+  }
+  drop(ev: CdkDragDrop<TaskType[], TaskType[], string>) {
+    console.log('Task', ev);
+    this.request
+      .setTask(ev.item.data, ev.currentIndex, this.columnId)
+      .subscribe((tasks) => {
+        // console.log(tasks);
         if (ev.previousContainer === ev.container) {
-          moveItemInArray(ev.container.data, ev.previousIndex, task.order);
+          moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
         } else {
           transferArrayItem(
             ev.previousContainer.data,
@@ -75,15 +75,5 @@ export class TaskComponent implements OnInit {
           );
         }
       });
-    // if (ev.previousContainer === ev.container) {
-    //   moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
-    // } else {
-    //   transferArrayItem(
-    //     ev.previousContainer.data,
-    //     ev.container.data,
-    //     ev.previousIndex,
-    //     ev.currentIndex
-    //   );
-    // }
   }
 }

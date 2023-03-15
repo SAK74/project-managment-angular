@@ -89,9 +89,9 @@ export class DataRequest {
   }
 
   setColumn(_id: string, order: number) {
-    return this.http.patch<ColumnType>(
+    return this.http.patch<ColumnType[]>(
       new URL('columnsSet', SERVER).toString(),
-      { _id, order },
+      [{ _id, order }],
       { headers }
     );
   }
@@ -118,7 +118,7 @@ export class DataRequest {
   }
 
   setTask(_id: string, order: number, columnId: string) {
-    return this.http.patch<TaskType>(tasksURL, [{ _id, order, columnId }], {
+    return this.http.patch<TaskType[]>(tasksURL, [{ _id, order, columnId }], {
       headers,
     });
   }

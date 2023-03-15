@@ -5,3 +5,7 @@
 .cdk-drag {
   cursor: grab;
 }
+
+.del {
+  cursor: pointer;
+}
