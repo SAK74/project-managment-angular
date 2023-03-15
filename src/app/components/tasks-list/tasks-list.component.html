@@ -1,0 +1,16 @@
+<ul
+  cdkDropList
+  [cdkDropListData]="tasks"
+  (cdkDropListDropped)="drop($event)"
+  class="container"
+>
+  <li
+    *ngFor="let task of tasks"
+    (dragstart)="dragStart($event, task._id)"
+    cdkDrag
+    [cdkDragData]="task"
+  >
+    {{ task.title }}
+  </li>
+</ul>
+<button (click)="addTask('new task', 'new description')">add task</button>

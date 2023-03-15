@@ -1,3 +1,8 @@
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
 import { DataRequest } from 'src/app/services/request.service';
 
@@ -13,33 +18,18 @@ export interface TaskType {
 }
 
 @Component({
-  selector: 'task-component',
-  template: `<ul>
-      <li
-        *ngFor="let task of tasks"
-        draggable="true"
-        (dragstart)="dragStart($event, task._id)"
-      >
-        {{ task.title }}
-      </li>
-    </ul>
-    <button (click)="addTask('new task', 'new description')">
-      add task
-    </button> `,
-  styles: [
-    `
-      li[draggable] {
-        cursor: grab;
-      }
-    `,
-  ],
+  selector: 'tasks-list',
+  templateUrl: './tasks-list.component.html',
+  styleUrls: ['./tasks-list.component.css'],
 })
 export class TaskComponent implements OnInit {
   @Input() boardId!: string;
   @Input() columnId!: string;
+  // @Input() colLength!: number;
 
-  tasks: TaskType[] | null = null;
+  tasks: TaskType[] = [];
   count: number;
+  dropContainersIds: string[] = [];
   constructor(private request: DataRequest) {
     this.count = 1;
   }
@@ -47,6 +37,10 @@ export class TaskComponent implements OnInit {
     this.request
       .getTasks(this.boardId, this.columnId)
       .subscribe((tasks) => (this.tasks = [...tasks]));
+    // for (let i = 0; i < this.colLength; i += 1) {
+    //   this.dropContainersIds.push('cdk-drop-list-' + i);
+    // }
+    // console.log(this.dropContainersIds);
   }
   addTask(title: string, description: string) {
     this.request
@@ -63,5 +57,19 @@ export class TaskComponent implements OnInit {
     ev.dataTransfer?.setData('task_id', id);
     ev.dataTransfer?.setData('column_id', this.columnId);
     console.log('start', ev, id);
+  }
+
+  drop(ev: CdkDragDrop<TaskType[]>) {
+    console.log(ev);
+    if (ev.previousContainer === ev.container) {
+      moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
+    } else {
+      transferArrayItem(
+        ev.previousContainer.data,
+        ev.container.data,
+        ev.previousIndex,
+        ev.currentIndex
+      );
+    }
   }
 }

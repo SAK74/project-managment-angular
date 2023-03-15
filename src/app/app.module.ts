@@ -33,6 +33,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
@@ -76,6 +77,7 @@ import { SpinnerService } from './services/spinner.service';
     MatButtonModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    DragDropModule,
   ],
   providers: [interceptorsProviders, SpinnerService],
   bootstrap: [AppComponent],

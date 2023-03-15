@@ -6,9 +6,6 @@
     ></title-component>
   </mat-card-header>
   <mat-card-content>
-    <task-component
-      [boardId]="boardId"
-      [columnId]="column._id"
-    ></task-component>
+    <tasks-list [boardId]="boardId" [columnId]="column._id"></tasks-list>
   </mat-card-content>
 </mat-card>

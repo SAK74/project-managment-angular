@@ -1,4 +1,12 @@
-<div class="container">
+<div
+  class="container"
+  cdkDropList
+  [cdkDropListEnterPredicate]="checkElement"
+  [cdkDropListData]="columns"
+  cdkDropListGroup
+  (cdkDropListDropped)="dropColumn($event)"
+  cdkDropListOrientation="horizontal"
+>
   <mat-card class="add-new" (click)="addColumn('example column')">
     <mat-card-content>
       <mat-icon>add_circle</mat-icon>
@@ -9,8 +17,8 @@
     *ngFor="let column of columns"
     [boardId]="id"
     [column]="column"
-    (dragover)="dragOver($event)"
-    (drop)="handleDrop($event, column._id)"
+    cdkDrag
+    [cdkDragData]="column"
   ></column-component>
 </div>
 <mat-icon

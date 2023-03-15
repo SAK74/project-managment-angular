@@ -8,7 +8,7 @@ export * from './form-component/form-component.component';
 export * from './users/users.component';
 export * from './boards-list/boards.component';
 export * from './board-component/board.component';
-export * from './task-component/task.component';
+export * from './tasks-list/tasks-list.component';
 export * from './spinner/spinner.component';
 export * from './column/column.component';
 export * from './title-component/title.component';

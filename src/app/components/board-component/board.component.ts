@@ -1,3 +1,9 @@
+import {
+  CdkDrag,
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
@@ -19,7 +25,7 @@ export interface ColumnType {
 })
 export class SingleBoard implements OnInit {
   id = '';
-  columns: ColumnType[] | null = null;
+  columns: ColumnType[] = [];
   constructor(
     private route: ActivatedRoute,
     private request: DataRequest,
@@ -59,5 +65,22 @@ export class SingleBoard implements OnInit {
         this.snackBar.show(`Task ${title} has been deleted`);
         this.ngOnInit();
       });
+  }
+  checkElement(el: CdkDrag<any>) {
+    return !el.data.columnId;
+    // return false;
+  }
+  dropColumn(ev: CdkDragDrop<any>) {
+    console.log(ev);
+    if (ev.previousContainer === ev.container) {
+      moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
+    } else {
+      transferArrayItem(
+        ev.previousContainer.data,
+        ev.container.data,
+        ev.previousIndex,
+        ev.currentIndex
+      );
+    }
   }
 }
