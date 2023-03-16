@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, mergeMap } from 'rxjs';
+import { Observable, mergeMap, first, finalize } from 'rxjs';
 import { StoreType } from '../store/model';
 
 @Injectable()
@@ -20,10 +20,12 @@ export class UserConnectInterceptor implements HttpInterceptor {
     if (/tasks(?!Set)/.test(path)) {
       // console.log('add user interceptor');
       return this.store.select('user').pipe(
+        first(),
         mergeMap(({ id }) => {
           const copyReq = req.clone({ body: { ...req.body, userId: id } });
           return next.handle(copyReq);
-        })
+        }),
+        finalize(() => console.log('finish of connect user'))
       );
     }
     return next.handle(req);

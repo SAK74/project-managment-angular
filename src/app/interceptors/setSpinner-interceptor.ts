@@ -7,7 +7,7 @@ import {
 import { Injectable } from '@angular/core';
 import { finalize, tap } from 'rxjs/operators';
 // import { SpinnerComponent } from '../components';
-import { SpinnerService } from '../services/spinner.service';
+import { SpinnerService } from '../components/spinner/spinner.service';
 
 @Injectable({ providedIn: 'root' })
 export class SetSpinnerInterceptor implements HttpInterceptor {
@@ -20,13 +20,13 @@ export class SetSpinnerInterceptor implements HttpInterceptor {
       tap({
         next: (ev) => {
           // console.log('next: ', ev);
-          this.spinner.stop();
+          // this.spinner.stop();
         },
-        complete: () => console.log('complete'),
+        // complete: () => console.log('complete'),
       }),
       finalize(() => {
         console.log('finalize');
-        // this.spinner.stop();
+        this.spinner.stop();
       })
     );
   }

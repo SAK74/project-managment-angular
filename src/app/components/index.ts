@@ -12,3 +12,4 @@ export * from './tasks-list/tasks-list.component';
 export * from './spinner/spinner.component';
 export * from './column/column.component';
 export * from './title-component/title.component';
+export * from './spinner/spinner.service';

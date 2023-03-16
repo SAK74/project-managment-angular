@@ -9,3 +9,8 @@
   align-items: center;
   flex-direction: column;
 }
+
+.loading {
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+}

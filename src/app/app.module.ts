@@ -18,6 +18,7 @@ import {
   SpinnerComponent,
   ColumnComponent,
   TitleComponent,
+  SpinnerService,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -39,7 +40,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { interceptorsProviders } from './interceptors';
 import { tokenReducer, userReducer } from './store/reducers';
-import { SpinnerService } from './services/spinner.service';
 
 @NgModule({
   declarations: [

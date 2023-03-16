@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SpinnerService {
-  isLoading = false;
-  // constructor() {
-  //   this.isLoading = false;
-  // }
+  isLoading: boolean;
+  constructor() {
+    this.isLoading = false;
+  }
   start() {
     this.isLoading = true;
     // console.log('start', this.isLoading);
