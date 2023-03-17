@@ -2,7 +2,6 @@ import { CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
-import { SnackBarComponent } from '../snack-bars/snack-bar.component';
 import { TaskType } from '../tasks-list/tasks-list.component';
 
 export interface ColumnType {
@@ -16,16 +15,12 @@ export interface ColumnType {
   selector: 'single-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
-  providers: [DataRequest, SnackBarComponent],
+  providers: [DataRequest],
 })
 export class SingleBoard implements OnInit {
   id = '';
   columns: ColumnType[] = [];
-  constructor(
-    private route: ActivatedRoute,
-    private request: DataRequest,
-    private snackBar: SnackBarComponent
-  ) {
+  constructor(private route: ActivatedRoute, private request: DataRequest) {
     route.params.subscribe(({ id }) => (this.id = id));
   }
   ngOnInit(): void {
@@ -44,14 +39,6 @@ export class SingleBoard implements OnInit {
 
   deleteTask(ev: CdkDragDrop<TaskType>) {
     console.log('Trash', ev);
-    // const sourceTaskId = ev.dataTransfer!.getData('task_id');
-    // const sourceColumnId = ev.dataTransfer!.getData('column_id');
-    // this.request
-    //   .deleteTask(this.id, sourceColumnId, sourceTaskId)
-    //   .subscribe(({ title }) => {
-    //     this.snackBar.show(`Task ${title} has been deleted`);
-    //     this.ngOnInit();
-    //   });
   }
   checkElement(el: CdkDrag<any>) {
     return !el.data.columnId;

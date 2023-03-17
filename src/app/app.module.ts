@@ -43,6 +43,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { interceptorsProviders } from './interceptors';
 import { tokenReducer, userReducer } from './store/reducers';
+import { SnackBarService } from './services/snack-bar.service';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,7 @@ import { tokenReducer, userReducer } from './store/reducers';
     DragDropModule,
     MatDialogModule,
   ],
-  providers: [interceptorsProviders, SpinnerService],
+  providers: [interceptorsProviders, SpinnerService, SnackBarService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -13,7 +13,8 @@ export interface UserType {
   login: string;
 }
 
-const SERVER = 'http://192.168.64.251:3000';
+const SERVER = 'http://192.168.0.55:3000';
+// const SERVER = 'https://rs-react-final-task-server.vercel.app/';
 
 const AUTHURL = new URL('auth', SERVER).toString();
 const boardsURL = new URL('boards', SERVER).toString();
@@ -27,7 +28,7 @@ interface SignResponseType {
   id: string;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class DataRequest {
   constructor(private http: HttpClient) {}
 
@@ -62,31 +63,41 @@ export class DataRequest {
   }
 
   deleteBoard(id: string) {
-    return this.http.delete(boardsURL + `/${id}`);
+    return this.http
+      .delete(boardsURL + `/${id}`)
+      .pipe(catchError(this.handleError));
   }
 
   updateBoard(boardId: string, board: Omit<BoardType, '_id'>) {
-    return this.http.put<BoardType>(boardsURL + `/${boardId}`, board, {
-      headers,
-    });
+    return this.http
+      .put<BoardType>(boardsURL + `/${boardId}`, board, {
+        headers,
+      })
+      .pipe(catchError(this.handleError));
   }
 
   getColumns(id: string) {
-    return this.http.get<ColumnType[]>(boardsURL + `/${id}/columns`);
+    return this.http
+      .get<ColumnType[]>(boardsURL + `/${id}/columns`)
+      .pipe(catchError(this.handleError));
   }
   addColumn(boardId: string, title: string) {
-    return this.http.post<ColumnType>(
-      boardsURL + `/${boardId}/columns`,
-      {
-        title,
-        order: 0,
-      },
-      { headers }
-    );
+    return this.http
+      .post<ColumnType>(
+        boardsURL + `/${boardId}/columns`,
+        {
+          title,
+          order: 0,
+        },
+        { headers }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   deleteColumn(boardId: string, columnId: string) {
-    return this.http.delete(boardsURL + `/${boardId}/columns/${columnId}`);
+    return this.http
+      .delete(boardsURL + `/${boardId}/columns/${columnId}`)
+      .pipe(catchError(this.handleError));
   }
 
   updateColumn(
@@ -94,25 +105,27 @@ export class DataRequest {
     columnId: string,
     column: Pick<ColumnType, 'order' | 'title'>
   ) {
-    return this.http.put<ColumnType>(
-      boardsURL + `/${boardId}/columns/${columnId}`,
-      column,
-      { headers }
-    );
+    return this.http
+      .put<ColumnType>(boardsURL + `/${boardId}/columns/${columnId}`, column, {
+        headers,
+      })
+      .pipe(catchError(this.handleError));
   }
 
   setColumn(_id: string, order: number) {
-    return this.http.patch<ColumnType[]>(
-      new URL('columnsSet', SERVER).toString(),
-      [{ _id, order }],
-      { headers }
-    );
+    return this.http
+      .patch<ColumnType[]>(
+        new URL('columnsSet', SERVER).toString(),
+        [{ _id, order }],
+        { headers }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   getTasks(boardId: string, columnId: string) {
-    return this.http.get<TaskType[]>(
-      boardsURL + `/${boardId}/columns/${columnId}/tasks`
-    );
+    return this.http
+      .get<TaskType[]>(boardsURL + `/${boardId}/columns/${columnId}/tasks`)
+      .pipe(catchError(this.handleError));
   }
 
   addTask(
@@ -120,31 +133,38 @@ export class DataRequest {
     columnId: string,
     task: Omit<TaskType, 'boardId' | 'columnId' | 'userId' | '_id'>
   ) {
-    return this.http.post<TaskType>(
-      boardsURL + `/${boardId}/columns/${columnId}/tasks`,
-      {
-        ...task,
-        userId: '',
-      },
-      { headers }
-    );
+    return this.http
+      .post<TaskType>(
+        boardsURL + `/${boardId}/columns/${columnId}/tasks`,
+        {
+          ...task,
+          userId: '',
+        },
+        { headers }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   setTask(_id: string, order: number, columnId: string) {
-    return this.http.patch<TaskType[]>(tasksURL, [{ _id, order, columnId }], {
-      headers,
-    });
+    return this.http
+      .patch<TaskType[]>(tasksURL, [{ _id, order, columnId }], {
+        headers,
+      })
+      .pipe(catchError(this.handleError));
   }
 
   deleteTask(boardId: string, columnId: string, taskId: string) {
-    return this.http.delete<TaskType>(
-      boardsURL + `/${boardId}/columns/${columnId}/tasks/${taskId}`
-    );
+    return this.http
+      .delete<TaskType>(
+        boardsURL + `/${boardId}/columns/${columnId}/tasks/${taskId}`
+      )
+      .pipe(catchError(this.handleError));
   }
   getUserId() {}
 
   handleError(err: HttpErrorResponse) {
-    console.log(err);
+    // console.log(this);
+    // this.snackBar.show('something error');
     return throwError(() => Error('Something is wrong...'));
   }
 }
