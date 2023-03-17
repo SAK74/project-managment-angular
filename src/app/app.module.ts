@@ -19,6 +19,8 @@ import {
   ColumnComponent,
   TitleComponent,
   SpinnerService,
+  ConfirmComponent,
+  UserProfileComponent,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -35,6 +37,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
@@ -58,6 +61,8 @@ import { tokenReducer, userReducer } from './store/reducers';
     SpinnerComponent,
     ColumnComponent,
     TitleComponent,
+    ConfirmComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +83,7 @@ import { tokenReducer, userReducer } from './store/reducers';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     DragDropModule,
+    MatDialogModule,
   ],
   providers: [interceptorsProviders, SpinnerService],
   bootstrap: [AppComponent],

@@ -4,6 +4,8 @@ import { logout, setToken, setUser } from './actions';
 const initialToken = {
   token: window.sessionStorage.getItem('token') || '',
   isLogged: JSON.parse(window.sessionStorage.getItem('logged') || 'false'),
+  // token: '',
+  // isLogged: false,
 };
 export const tokenReducer = createReducer(
   // { token: '', isLogged: false },
@@ -12,10 +14,12 @@ export const tokenReducer = createReducer(
   on(logout, () => ({ token: '', isLogged: false }))
 );
 
-// const initialUser = JSON.parse(window.sessionStorage.getItem('user')|| '');
-const initialUser = { login: 'exampled user', id: 'exampled_id' };
+const initialUser = {
+  login: 'exampled user',
+  _id: 'exampled_id',
+  name: 'example name',
+};
 export const userReducer = createReducer(
-  // '',
-  initialUser
-  // on(setUser, (state, { user }) => user)
+  initialUser,
+  on(setUser, (state, { user }) => user)
 );

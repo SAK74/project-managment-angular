@@ -19,6 +19,10 @@
     <mat-icon matRipple [matMenuTriggerFor]="mat_menu">account_circle</mat-icon>
     <mat-menu #mat_menu>
       <div>{{ user$ | async }}</div>
+      <div matRipple class="clickable" (click)="editProfile()">
+        <mat-icon>manage_accounts</mat-icon>
+        Edit profile
+      </div>
       <div matRipple class="clickable" (click)="logout()">
         <mat-icon>logout</mat-icon>
         Logout

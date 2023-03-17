@@ -11,9 +11,14 @@ import { Store } from '@ngrx/store';
 import { StoreType } from 'src/app/store/model';
 
 export interface UserForm {
-  login: FormControl<string | null>;
-  password: FormControl<string | null>;
-  name?: FormControl<string | null>;
+  login: FormControl<string>;
+  password: FormControl<string>;
+  name?: FormControl<string>;
+}
+export interface UserFormType {
+  login: string;
+  password: string;
+  name?: string;
 }
 
 @Component({
@@ -23,29 +28,37 @@ export interface UserForm {
 })
 export class FormComponent implements OnInit {
   @Input() type!: 'login' | 'signup';
-  @Output() onSubmit = new EventEmitter<UserForm>();
+  @Output() onSubmit = new EventEmitter<typeof this.userForm.value>();
   constructor(private store: Store<StoreType>) {}
   userForm = new FormGroup<UserForm>({
-    login: new FormControl('', Validators.required),
-    password: new FormControl('', [Validators.required, pasValidator]),
+    login: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    password: new FormControl('', {
+      validators: [Validators.required, pasValidator],
+      nonNullable: true,
+    }),
   });
 
   ngOnInit() {
     if (this.type === 'signup') {
       this.userForm.addControl(
         'name',
-        new FormControl('', Validators.required)
+        new FormControl('', {
+          validators: Validators.required,
+          nonNullable: true,
+        })
       );
-    } else {
-      this.store
-        .select('user')
-        .subscribe(({ login }) => this.userForm.patchValue({ login }));
     }
+    // else {
+    //   this.store
+    //     .select('user')
+    //     .subscribe(({ login }) => this.userForm.patchValue({ login }));
+    // }
   }
-  show() {
-    console.log(this.userForm);
-  }
-  handleSubmit(val: any) {
+
+  handleSubmit(val: typeof this.userForm.value) {
     this.onSubmit.emit(val);
   }
   get name() {

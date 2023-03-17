@@ -4,6 +4,7 @@ import { SpinnerService } from 'src/app/components/spinner/spinner.service';
 @Component({
   selector: 'spinner-component',
   template: ` <mat-spinner *ngIf="spinner.isLoading"></mat-spinner> `,
+  // providers: [SpinnerService],
   host: { '[class.loading]': 'spinner.isLoading' },
   styles: [
     `

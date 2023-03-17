@@ -13,3 +13,5 @@ export * from './spinner/spinner.component';
 export * from './column/column.component';
 export * from './title-component/title.component';
 export * from './spinner/spinner.service';
+export * from './modal-dialogs/confirm-component';
+export * from './user-profile/user-profile.component';

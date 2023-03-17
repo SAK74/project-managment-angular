@@ -32,4 +32,6 @@ export class TopPanelComponent {
     this.snackBar.show('You have been logged out');
     this.router.navigateByUrl('login');
   }
+
+  editProfile() {}
 }

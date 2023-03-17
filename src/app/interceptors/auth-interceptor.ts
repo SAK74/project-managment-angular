@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, mergeMap, first } from 'rxjs';
+import { Observable, mergeMap, first, tap } from 'rxjs';
 import { StoreType } from '../store/model';
 
 @Injectable()
@@ -20,6 +20,7 @@ export class Authorization implements HttpInterceptor {
     if (!path.startsWith('/auth')) {
       return this.store.select('token').pipe(
         first(),
+        // tap(console.log),
         mergeMap(({ token, isLogged }) => {
           const copyReq: HttpRequest<any> = isLogged
             ? req.clone({

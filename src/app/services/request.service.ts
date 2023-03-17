@@ -5,9 +5,15 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { BoardType, ColumnType, UserForm, TaskType } from '../components';
+import { BoardType, ColumnType, TaskType, UserFormType } from '../components';
 
-const SERVER = 'http://192.168.0.55:3000';
+export interface UserType {
+  _id: string;
+  name: string;
+  login: string;
+}
+
+const SERVER = 'http://192.168.64.251:3000';
 
 const AUTHURL = new URL('auth', SERVER).toString();
 const boardsURL = new URL('boards', SERVER).toString();
@@ -24,22 +30,29 @@ interface SignResponseType {
 @Injectable()
 export class DataRequest {
   constructor(private http: HttpClient) {}
-  signup(user: UserForm) {
+
+  signup(user: UserFormType) {
     return this.http
       .post<SignResponseType>(AUTHURL + '/signup', user, {
         headers,
       })
       .pipe(catchError(this.handleError));
   }
-  login(user: UserForm) {
+  login(login: string, password: string) {
     return this.http
-      .post<{ token: string }>(AUTHURL + '/signin', user, { headers })
+      .post<{ token: string }>(
+        AUTHURL + '/signin',
+        { login, password },
+        { headers }
+      )
       .pipe(catchError(this.handleError));
   }
 
   getUsers() {
     const USERURL = new URL('users', SERVER).toString();
-    return this.http.get(USERURL).pipe(catchError(this.handleError));
+    return this.http
+      .get<UserType[]>(USERURL)
+      .pipe(catchError(this.handleError));
   }
 
   getBoards() {
