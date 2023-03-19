@@ -17,6 +17,7 @@ const SERVER = 'http://192.168.0.55:3000';
 // const SERVER = 'https://rs-react-final-task-server.vercel.app/';
 
 const AUTHURL = new URL('auth', SERVER).toString();
+const USERURL = new URL('users', SERVER).toString();
 const boardsURL = new URL('boards', SERVER).toString();
 const tasksURL = new URL('tasksSet', SERVER).toString();
 
@@ -50,10 +51,13 @@ export class DataRequest {
   }
 
   getUsers() {
-    const USERURL = new URL('users', SERVER).toString();
     return this.http
       .get<UserType[]>(USERURL)
       .pipe(catchError(this.handleError));
+  }
+
+  removeUser(id: string) {
+    return this.http.delete<UserType>(USERURL + `/${id}`);
   }
 
   getBoards() {

@@ -1,6 +1,6 @@
-<h3>{{ type === "login" ? "Log in" : "Sign up" }}</h3>
+<h3>{{ title }}</h3>
 <form [formGroup]="userForm" (submit)="handleSubmit(userForm.value)">
-  <mat-form-field *ngIf="type === 'signup'">
+  <mat-form-field *ngIf="type === 'signup' || type === 'edit'">
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" />
     <mat-error *ngIf="name?.errors">{{ name?.errors | json }}</mat-error>

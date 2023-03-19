@@ -21,8 +21,8 @@ export class UserConnectInterceptor implements HttpInterceptor {
       // console.log('add user interceptor');
       return this.store.select('user').pipe(
         first(),
-        mergeMap(({ id }) => {
-          const copyReq = req.clone({ body: { ...req.body, userId: id } });
+        mergeMap(({ _id }) => {
+          const copyReq = req.clone({ body: { ...req.body, userId: _id } });
           return next.handle(copyReq);
         }),
         finalize(() => console.log('finish of connect user'))

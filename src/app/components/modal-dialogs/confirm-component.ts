@@ -7,8 +7,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     <h2 matDialogTitle>Are You sure</h2>
     <p>to {{ message }}</p>
     <mat-dialog-actions>
-      <button mat-button>No, thank's</button>
-      <button mat-button [mat-dialog-close]="true">Yes, please</button>
+      <button mat-button [mat-dialog-close]="false">No, thank's</button>
+      <button mat-button color="warn" [mat-dialog-close]="true">
+        Yes, please
+      </button>
     </mat-dialog-actions>
   `,
 })

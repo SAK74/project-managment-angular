@@ -31,5 +31,7 @@ export class TopPanelComponent {
     this.router.navigateByUrl('login');
   }
 
-  editProfile() {}
+  editProfile() {
+    this.router.navigateByUrl('profile');
+  }
 }

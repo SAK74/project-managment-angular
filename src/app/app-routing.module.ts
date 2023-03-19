@@ -8,6 +8,7 @@ import {
   UsersComponent,
   BoardsComponent,
   SingleBoard,
+  UserProfileComponent,
 } from './components';
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
     path: 'boards',
     component: BoardsComponent,
   },
+  { path: 'profile', component: UserProfileComponent },
   {
     path: '',
     // pathMatch: 'full',

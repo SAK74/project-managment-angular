@@ -12,7 +12,7 @@ import { StoreType } from 'src/app/store/model';
 
 export interface UserForm {
   login: FormControl<string>;
-  password: FormControl<string>;
+  password?: FormControl<string>;
   name?: FormControl<string>;
 }
 export interface UserFormType {
@@ -27,8 +27,9 @@ export interface UserFormType {
   styleUrls: ['./form-component.component.css'],
 })
 export class FormComponent implements OnInit {
-  @Input() type!: 'login' | 'signup';
+  @Input() type!: 'login' | 'signup' | 'edit';
   @Output() onSubmit = new EventEmitter<typeof this.userForm.value>();
+  title: string = '';
   constructor(private store: Store<StoreType>) {}
   userForm = new FormGroup<UserForm>({
     login: new FormControl('', {
@@ -42,7 +43,20 @@ export class FormComponent implements OnInit {
   });
 
   ngOnInit() {
-    if (this.type === 'signup') {
+    switch (this.type) {
+      case 'login':
+        this.title = 'Log in';
+        break;
+      case 'signup':
+        this.title = 'Sign up';
+        break;
+      case 'edit':
+        this.title = 'Edit profile';
+        break;
+      default:
+        return;
+    }
+    if (this.type === 'signup' || this.type === 'edit') {
       this.userForm.addControl(
         'name',
         new FormControl('', {
@@ -50,12 +64,12 @@ export class FormComponent implements OnInit {
           nonNullable: true,
         })
       );
+      if (this.type === 'edit') {
+        this.store.select('user').subscribe(({ login, name, _id }) => {
+          this.userForm.setValue({ login, name, password: '' });
+        });
+      }
     }
-    // else {
-    //   this.store
-    //     .select('user')
-    //     .subscribe(({ login }) => this.userForm.patchValue({ login }));
-    // }
   }
 
   handleSubmit(val: typeof this.userForm.value) {
@@ -65,6 +79,7 @@ export class FormComponent implements OnInit {
     return this.userForm.get('name');
   }
   clear() {
+    console.log('cleared'); // dont work...?
     this.userForm.reset();
   }
 }
