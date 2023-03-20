@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
+import { CreateBoardComponent } from '../modal-dialogs/create-component';
 
 export interface BoardType {
   _id: string;
@@ -16,7 +18,11 @@ export interface BoardType {
 })
 export class BoardsComponent implements OnInit {
   boards: BoardType[] | null = null;
-  constructor(private request: DataRequest, private route: Router) {}
+  constructor(
+    private request: DataRequest,
+    private route: Router,
+    private dialog: MatDialog
+  ) {}
   ngOnInit(): void {
     this.request.getBoards().subscribe((boards) => (this.boards = boards));
   }
@@ -39,4 +45,11 @@ export class BoardsComponent implements OnInit {
         this.boards![idx] = board;
       });
   }
+  createBoard() {
+    console.log('create board', this);
+    const createDialog = this.dialog.open(CreateBoardComponent, {
+      data: 'board',
+    });
+  }
+  createClick = this.createBoard.bind(this);
 }

@@ -15,3 +15,6 @@ export * from './title-component/title.component';
 export * from './spinner/spinner.service';
 export * from './modal-dialogs/confirm-component';
 export * from './user-profile/user-profile.component';
+export * from './modal-dialogs/form.component';
+export * from './modal-dialogs/create-component';
+export * from './create-card/create-card.component';

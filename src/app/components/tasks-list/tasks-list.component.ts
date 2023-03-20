@@ -4,7 +4,9 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DataRequest } from 'src/app/services/request.service';
+import { CreateBoardComponent } from '../modal-dialogs/create-component';
 
 export interface TaskType {
   _id: string;
@@ -16,6 +18,10 @@ export interface TaskType {
   userId: string;
   users: string[];
 }
+export type CreateTaskType = {
+  title: string;
+  description: string;
+};
 
 @Component({
   selector: 'tasks-list',
@@ -25,12 +31,11 @@ export interface TaskType {
 export class TaskComponent implements OnInit {
   @Input() boardId!: string;
   @Input() columnId!: string;
-  // @Input() colLength!: number;
 
   tasks: TaskType[] = [];
   count: number;
   dropContainersIds: string[] = [];
-  constructor(private request: DataRequest) {
+  constructor(private request: DataRequest, private dialog: MatDialog) {
     this.count = 1;
   }
   ngOnInit(): void {
@@ -40,15 +45,24 @@ export class TaskComponent implements OnInit {
         (tasks) => (this.tasks = tasks.sort((a, b) => a.order - b.order))
       );
   }
-  addTask(title: string, description: string) {
-    this.request
-      .addTask(this.boardId, this.columnId, {
-        title: title + (this.count++).toString(),
-        order: this.tasks.length,
-        description,
-        users: [],
-      })
-      .subscribe((task) => this.tasks?.push(task));
+  addTask() {
+    const dialogRef = this.dialog.open<
+      CreateBoardComponent,
+      string,
+      CreateTaskType | null
+    >(CreateBoardComponent, { data: 'task' });
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.request
+          .addTask(this.boardId, this.columnId, {
+            title: res!.title,
+            order: this.tasks.length,
+            description: res!.description,
+            users: [],
+          })
+          .subscribe((task) => this.tasks?.push(task));
+      }
+    });
   }
 
   delTask(id: string) {

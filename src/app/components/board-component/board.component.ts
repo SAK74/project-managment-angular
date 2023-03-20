@@ -1,8 +1,9 @@
 import { CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
-import { TaskType } from '../tasks-list/tasks-list.component';
+import { CreateBoardComponent } from '../modal-dialogs/create-component';
 
 export interface ColumnType {
   _id: string;
@@ -20,7 +21,11 @@ export interface ColumnType {
 export class SingleBoard implements OnInit {
   id = '';
   columns: ColumnType[] = [];
-  constructor(private route: ActivatedRoute, private request: DataRequest) {
+  constructor(
+    private route: ActivatedRoute,
+    private request: DataRequest,
+    private dialog: MatDialog
+  ) {
     route.params.subscribe(({ id }) => (this.id = id));
   }
   ngOnInit(): void {
@@ -31,15 +36,21 @@ export class SingleBoard implements OnInit {
       );
   }
 
-  addColumn(title: string) {
-    this.request
-      .addColumn(this.id, title)
-      .subscribe((column) => this.columns?.unshift(column));
+  addColumn() {
+    console.log('create column', this);
+    const refDialog = this.dialog.open(CreateBoardComponent, {
+      data: 'column',
+    });
+    // this.request
+    //   .addColumn(this.id, ' example title')
+    //   .subscribe((column) => this.columns?.unshift(column));
   }
 
-  deleteTask(ev: CdkDragDrop<TaskType>) {
-    console.log('Trash', ev);
-  }
+  addColClick = this.addColumn.bind(this);
+
+  // deleteTask(ev: CdkDragDrop<TaskType>) {
+  //   console.log('Trash', ev);
+  // }
   checkElement(el: CdkDrag<any>) {
     return !el.data.columnId;
   }

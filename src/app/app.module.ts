@@ -21,6 +21,9 @@ import {
   SpinnerService,
   ConfirmComponent,
   UserProfileComponent,
+  FormCreateComponent,
+  CreateBoardComponent,
+  CreateCard,
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -64,6 +67,9 @@ import { SnackBarService } from './services/snack-bar.service';
     TitleComponent,
     ConfirmComponent,
     UserProfileComponent,
+    FormCreateComponent,
+    CreateBoardComponent,
+    CreateCard,
   ],
   imports: [
     BrowserModule,

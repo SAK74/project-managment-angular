@@ -7,11 +7,7 @@
   (cdkDropListDropped)="dropColumn($event)"
   cdkDropListOrientation="horizontal"
 >
-  <mat-card class="add-new" (click)="addColumn('example column')">
-    <mat-card-content>
-      <mat-icon>add_circle</mat-icon>
-    </mat-card-content>
-  </mat-card>
+  <create-card [onClick]="addColClick"></create-card>
 
   <column-component
     *ngFor="let column of columns"
