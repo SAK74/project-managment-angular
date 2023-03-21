@@ -1,3 +1,4 @@
+<h3>Board {{ title }}</h3>
 <div
   class="container"
   cdkDropList
@@ -17,6 +18,10 @@
     [cdkDragData]="column._id"
   ></column-component>
 </div>
-<!-- <mat-icon class="trash" cdkDropList (cdkDropListDropped)="deleteTask($event)"
-  >delete</mat-icon
-> -->
+<!-- <mat-icon
+    class="trash"
+    cdkDropList
+    [cdkDropListData]=""
+    (cdkDropListDropped)="deleteTask($event)"
+    >delete</mat-icon
+  > -->

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
+import { ConfirmComponent } from '../modal-dialogs/confirm-component';
 import { CreateBoardComponent } from '../modal-dialogs/create-component';
 
 export interface BoardType {
@@ -27,12 +28,19 @@ export class BoardsComponent implements OnInit {
     this.request.getBoards().subscribe((boards) => (this.boards = boards));
   }
   handleDelete(id: string) {
-    console.log(id);
-    this.request
-      .deleteBoard(id)
-      .subscribe(
-        () => (this.boards = this.boards!.filter(({ _id }) => _id !== id))
-      );
+    const confirmDialog = this.dialog.open<ConfirmComponent, string, boolean>(
+      ConfirmComponent,
+      { data: 'delete this board' }
+    );
+    confirmDialog.afterClosed().subscribe((confirm) => {
+      if (confirm) {
+        this.request
+          .deleteBoard(id)
+          .subscribe(
+            () => (this.boards = this.boards!.filter(({ _id }) => _id !== id))
+          );
+      }
+    });
   }
   handleEdit(id: string) {
     this.route.navigate(['boards', id]);

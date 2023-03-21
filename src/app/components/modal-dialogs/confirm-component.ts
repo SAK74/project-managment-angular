@@ -5,7 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   selector: 'confirm-component',
   template: `
     <h2 matDialogTitle>Are You sure</h2>
-    <p>to {{ message }}?..</p>
+    <p matDialogContent>to {{ message }}?..</p>
     <mat-dialog-actions>
       <button mat-button [mat-dialog-close]="false">No, thank's</button>
       <button mat-button color="warn" [mat-dialog-close]="true">

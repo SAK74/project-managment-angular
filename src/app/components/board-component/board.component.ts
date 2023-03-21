@@ -21,12 +21,16 @@ export interface ColumnType {
 export class SingleBoard implements OnInit {
   id = '';
   columns: ColumnType[] = [];
+  title = '';
   constructor(
     private route: ActivatedRoute,
     private request: DataRequest,
     private dialog: MatDialog
   ) {
-    route.params.subscribe(({ id }) => (this.id = id));
+    route.params.subscribe(({ id }) => {
+      this.id = id;
+      request.getBoard(id).subscribe(({ title }) => (this.title = title));
+    });
   }
   ngOnInit(): void {
     this.request
@@ -56,7 +60,7 @@ export class SingleBoard implements OnInit {
 
   addColClick = this.addColumn.bind(this);
 
-  // deleteTask(ev: CdkDragDrop<TaskType>) {
+  // deleteTask(ev: CdkDragDrop<any>) {
   //   console.log('Trash', ev);
   // }
   checkElement(el: CdkDrag<any>) {

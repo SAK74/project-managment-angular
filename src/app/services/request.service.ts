@@ -4,8 +4,9 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { catchError, throwError, tap } from 'rxjs';
 import { BoardType, ColumnType, TaskType, UserFormType } from '../components';
+import { SnackBarService } from './snack-bar.service';
 
 export interface UserType {
   _id: string;
@@ -31,7 +32,7 @@ interface SignResponseType {
 
 @Injectable({ providedIn: 'root' })
 export class DataRequest {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private logs: SnackBarService) {}
 
   signup(user: UserFormType) {
     return this.http
@@ -66,10 +67,17 @@ export class DataRequest {
       .pipe(catchError(this.handleError));
   }
 
+  getBoard(id: string) {
+    return this.http.get<BoardType>(boardsURL + `/${id}`);
+  }
+
   deleteBoard(id: string) {
-    return this.http
-      .delete(boardsURL + `/${id}`)
-      .pipe(catchError(this.handleError));
+    return this.http.delete<BoardType>(boardsURL + `/${id}`).pipe(
+      tap(({ title }) => {
+        this.logs.show(`Board ${title} has been deleted`);
+      }),
+      catchError(this.handleError)
+    );
   }
 
   updateBoard(boardId: string, board: Omit<BoardType, '_id'>) {
