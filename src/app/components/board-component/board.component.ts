@@ -38,12 +38,20 @@ export class SingleBoard implements OnInit {
 
   addColumn() {
     console.log('create column', this);
-    const refDialog = this.dialog.open(CreateBoardComponent, {
+    const refDialog = this.dialog.open<
+      CreateBoardComponent,
+      string,
+      { title: string } | null
+    >(CreateBoardComponent, {
       data: 'column',
     });
-    // this.request
-    //   .addColumn(this.id, ' example title')
-    //   .subscribe((column) => this.columns?.unshift(column));
+    refDialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this.request
+          .addColumn(this.id, res.title)
+          .subscribe((column) => this.columns?.unshift(column));
+      }
+    });
   }
 
   addColClick = this.addColumn.bind(this);
@@ -58,7 +66,6 @@ export class SingleBoard implements OnInit {
   dropColumn(ev: CdkDragDrop<ColumnType[], ColumnType[], string>) {
     console.log('Board: ', ev);
     this.request.setColumn(ev.item.data, ev.currentIndex).subscribe((col) => {
-      // console.log(col);
       moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
     });
   }

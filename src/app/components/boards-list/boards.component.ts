@@ -47,8 +47,19 @@ export class BoardsComponent implements OnInit {
   }
   createBoard() {
     console.log('create board', this);
-    const createDialog = this.dialog.open(CreateBoardComponent, {
+    const createDialog = this.dialog.open<
+      CreateBoardComponent,
+      string,
+      { title: string } | null
+    >(CreateBoardComponent, {
       data: 'board',
+    });
+    createDialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this.request
+          .addBoard(res.title)
+          .subscribe((board) => this.boards?.push(board));
+      }
     });
   }
   createClick = this.createBoard.bind(this);

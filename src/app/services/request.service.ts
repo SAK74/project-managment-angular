@@ -80,6 +80,10 @@ export class DataRequest {
       .pipe(catchError(this.handleError));
   }
 
+  addBoard(title: string) {
+    return this.http.post<BoardType>(boardsURL, { title, users: [] });
+  }
+
   getColumns(id: string) {
     return this.http
       .get<ColumnType[]>(boardsURL + `/${id}/columns`)

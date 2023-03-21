@@ -5,11 +5,16 @@ import { CreatedType } from './form.component';
 @Component({
   selector: 'create-element',
   template: `
-    <form-create-component
-      [type]="type"
-      (onSubmit)="onSubmit($event)"
-    ></form-create-component>
-    <button mat-button [mat-dialog-close]="null">Cancel</button>
+    <h3 matDialogTitle>Create a {{ type }}</h3>
+    <mat-dialog-content>
+      <form-create-component
+        [type]="type"
+        (onSubmit)="onSubmit($event)"
+      ></form-create-component>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="null">Cancel</button>
+    </mat-dialog-actions>
   `,
 })
 export class CreateBoardComponent {

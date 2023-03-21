@@ -17,8 +17,8 @@ export class UserConnectInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const path = new URL(req.url).pathname;
+    // console.log('add user interceptor: ', req.method, path);
     if (/tasks(?!Set)/.test(path)) {
-      // console.log('add user interceptor');
       return this.store.select('user').pipe(
         first(),
         mergeMap(({ _id }) => {
@@ -26,6 +26,16 @@ export class UserConnectInterceptor implements HttpInterceptor {
           return next.handle(copyReq);
         }),
         finalize(() => console.log('finish of connect user'))
+      );
+    }
+    if (req.method === 'POST' && path === '/boards') {
+      return this.store.select('user').pipe(
+        first(),
+        mergeMap(({ login }) => {
+          console.log('login: ', login);
+          const copyReq = req.clone({ body: { ...req.body, owner: login } });
+          return next.handle(copyReq);
+        })
       );
     }
     return next.handle(req);
