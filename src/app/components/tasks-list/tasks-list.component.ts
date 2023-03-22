@@ -6,25 +6,9 @@ import {
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataRequest } from 'src/app/services/request.service';
-import {
-  CreateBoardComponent,
-  DialogDataType,
-} from '../modal-dialogs/create-component';
-
-export interface TaskType {
-  _id: string;
-  title: string;
-  order: number;
-  boardId: string;
-  columnId: string;
-  description: string;
-  userId: string;
-  users: string[];
-}
-export type CreateTaskType = {
-  title: string;
-  description: string;
-};
+import { CreateBoardComponent } from '../modal-dialogs/create-component';
+import { DialogDataType } from '../modal-dialogs/model';
+import { CreateTaskType, TaskType } from './model';
 
 @Component({
   selector: 'tasks-list',
@@ -90,7 +74,6 @@ export class TaskComponent implements OnInit {
       });
   }
   deleteTask(taskId: string) {
-    console.log('delete');
     this.request
       .deleteTask(this.boardId, this.columnId, taskId)
       .subscribe(({ _id }) => {
@@ -127,18 +110,6 @@ export class TaskComponent implements OnInit {
               this.tasks[idx] = task;
             });
         }
-        // const { order, users } = task;
-        // this.request
-        //   .updateTask(this.boardId, this.columnId, task._id, {
-        //     order,
-        //     title: res.title,
-        //     description: res.description,
-        //     users,
-        //   })
-        //   .subscribe((task) => {
-        //     const idx = this.tasks.findIndex((el) => el._id === task._id);
-        //     this.tasks[idx] = task;
-        //   });
       }
     });
   }

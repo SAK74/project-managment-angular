@@ -4,14 +4,9 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
-import { CreateTaskType } from '../tasks-list/tasks-list.component';
+import { CreateTaskType } from '../tasks-list/model';
 import { ConfirmComponent } from './confirm-component';
-import { CreatedType } from './form.component';
-
-export interface DialogDataType {
-  type: CreatedType;
-  taskData?: CreateTaskType;
-}
+import { DialogDataType } from './model';
 
 @Component({
   selector: 'create-element',

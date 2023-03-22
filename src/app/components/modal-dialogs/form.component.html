@@ -2,10 +2,16 @@
   <mat-form-field>
     <mat-label>{{ type }} title</mat-label>
     <input matInput formControlName="title" />
+    <mat-error *ngIf="createForm.controls.title.invalid">{{
+      getError("title")
+    }}</mat-error>
   </mat-form-field>
   <mat-form-field *ngIf="type === 'task'">
     <mat-label>{{ type }} description</mat-label>
     <input matInput formControlName="description" />
+    <mat-error *ngIf="createForm.controls.description?.invalid">{{
+      getError("description")
+    }}</mat-error>
   </mat-form-field>
   <button mat-button type="submit" [disabled]="createForm.invalid">
     Create

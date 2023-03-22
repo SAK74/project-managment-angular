@@ -3,10 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
 import { ConfirmComponent } from '../modal-dialogs/confirm-component';
-import {
-  CreateBoardComponent,
-  DialogDataType,
-} from '../modal-dialogs/create-component';
+import { CreateBoardComponent } from '../modal-dialogs/create-component';
+import { DialogDataType } from '../modal-dialogs/model';
 
 export interface BoardType {
   _id: string;

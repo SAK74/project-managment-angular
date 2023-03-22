@@ -5,7 +5,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError, tap } from 'rxjs';
-import { BoardType, ColumnType, TaskType, UserFormType } from '../components';
+import { BoardType, ColumnType, UserFormType } from '../components';
+import { TaskType } from '../components/tasks-list/model';
 import { SnackBarService } from './snack-bar.service';
 
 export interface UserType {
@@ -128,13 +129,11 @@ export class DataRequest {
       .pipe(catchError(this.handleError));
   }
 
-  setColumn(_id: string, order: number) {
+  setColumn(colSet: { _id: string; order: number }[]) {
     return this.http
-      .patch<ColumnType[]>(
-        new URL('columnsSet', SERVER).toString(),
-        [{ _id, order }],
-        { headers }
-      )
+      .patch<ColumnType[]>(new URL('columnsSet', SERVER).toString(), colSet, {
+        headers,
+      })
       .pipe(catchError(this.handleError));
   }
 

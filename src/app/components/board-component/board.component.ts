@@ -3,10 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
-import {
-  CreateBoardComponent,
-  DialogDataType,
-} from '../modal-dialogs/create-component';
+import { CreateBoardComponent } from '../modal-dialogs/create-component';
+import { DialogDataType } from '../modal-dialogs/model';
 
 export interface ColumnType {
   _id: string;
@@ -67,8 +65,13 @@ export class SingleBoard implements OnInit {
   }
 
   dropColumn(ev: CdkDragDrop<ColumnType[], ColumnType[], string>) {
-    this.request.setColumn(ev.item.data, ev.currentIndex).subscribe((col) => {
-      moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
-    });
+    moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
+    this.request
+      .setColumn(this.columns.map((col, ind) => ({ order: ind, _id: col._id })))
+      .subscribe({
+        error: () => {
+          moveItemInArray(ev.container.data, ev.currentIndex, ev.previousIndex);
+        },
+      });
   }
 }
