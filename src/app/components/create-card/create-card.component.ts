@@ -11,8 +11,8 @@ import { Component, Input } from '@angular/core';
     `
       :host {
         cursor: pointer;
-        width: 120px;
-        height: 200px;
+        width: 100px;
+        height: 100px;
       }
       mat-card {
         width: 100%;

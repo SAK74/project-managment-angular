@@ -14,7 +14,7 @@ export interface UserType {
   login: string;
 }
 
-const SERVER = 'http://192.168.0.55:3000';
+const SERVER = 'http://192.168.0.56:3000';
 // const SERVER = 'https://rs-react-final-task-server.vercel.app/';
 
 const AUTHURL = new URL('auth', SERVER).toString();
@@ -152,10 +152,7 @@ export class DataRequest {
     return this.http
       .post<TaskType>(
         boardsURL + `/${boardId}/columns/${columnId}/tasks`,
-        {
-          ...task,
-          userId: '',
-        },
+        task,
         { headers }
       )
       .pipe(catchError(this.handleError));
@@ -174,13 +171,28 @@ export class DataRequest {
       .delete<TaskType>(
         boardsURL + `/${boardId}/columns/${columnId}/tasks/${taskId}`
       )
-      .pipe(catchError(this.handleError));
+      .pipe(
+        tap(({ title }) => {
+          this.logs.show(`Task ${title} has been deleted!`);
+        }),
+        catchError(this.handleError)
+      );
+  }
+  updateTask(
+    boardId: string,
+    columnId: string,
+    taskId: string,
+    task: Omit<TaskType, 'columnId' | 'boardId' | '_id' | 'userId'>
+  ) {
+    return this.http.put<TaskType>(
+      boardsURL + `/${boardId}/columns/${columnId}/tasks/${taskId}`,
+      { ...task, columnId },
+      { headers }
+    );
   }
   getUserId() {}
 
   handleError(err: HttpErrorResponse) {
-    // console.log(this);
-    // this.snackBar.show('something error');
     return throwError(() => Error('Something is wrong...'));
   }
 }

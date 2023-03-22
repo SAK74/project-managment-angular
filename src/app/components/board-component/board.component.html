@@ -14,14 +14,5 @@
     *ngFor="let column of columns"
     [boardId]="id"
     [column]="column"
-    cdkDrag
-    [cdkDragData]="column._id"
   ></column-component>
 </div>
-<!-- <mat-icon
-    class="trash"
-    cdkDropList
-    [cdkDropListData]=""
-    (cdkDropListDropped)="deleteTask($event)"
-    >delete</mat-icon
-  > -->

@@ -6,7 +6,10 @@ import {
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataRequest } from 'src/app/services/request.service';
-import { CreateBoardComponent } from '../modal-dialogs/create-component';
+import {
+  CreateBoardComponent,
+  DialogDataType,
+} from '../modal-dialogs/create-component';
 
 export interface TaskType {
   _id: string;
@@ -33,11 +36,8 @@ export class TaskComponent implements OnInit {
   @Input() columnId!: string;
 
   tasks: TaskType[] = [];
-  count: number;
   dropContainersIds: string[] = [];
-  constructor(private request: DataRequest, private dialog: MatDialog) {
-    this.count = 1;
-  }
+  constructor(private request: DataRequest, private dialog: MatDialog) {}
   ngOnInit(): void {
     this.request
       .getTasks(this.boardId, this.columnId)
@@ -48,9 +48,9 @@ export class TaskComponent implements OnInit {
   addTask() {
     const dialogRef = this.dialog.open<
       CreateBoardComponent,
-      string,
+      DialogDataType,
       CreateTaskType | null
-    >(CreateBoardComponent, { data: 'task' });
+    >(CreateBoardComponent, { data: { type: 'task' } });
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.request
@@ -77,7 +77,6 @@ export class TaskComponent implements OnInit {
     this.request
       .setTask(ev.item.data, ev.currentIndex, this.columnId)
       .subscribe((tasks) => {
-        // console.log(tasks);
         if (ev.previousContainer === ev.container) {
           moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
         } else {
@@ -89,5 +88,58 @@ export class TaskComponent implements OnInit {
           );
         }
       });
+  }
+  deleteTask(taskId: string) {
+    console.log('delete');
+    this.request
+      .deleteTask(this.boardId, this.columnId, taskId)
+      .subscribe(({ _id }) => {
+        this.tasks = this.tasks.filter((task) => task._id !== _id);
+      });
+  }
+  editTask(task: TaskType) {
+    const modal = this.dialog.open<
+      CreateBoardComponent,
+      DialogDataType,
+      CreateTaskType | null | 'delete'
+    >(CreateBoardComponent, {
+      data: {
+        type: 'edit',
+        taskData: { title: task.title, description: task.description },
+      },
+    });
+    modal.afterClosed().subscribe((res) => {
+      console.log('list: ', res);
+      if (res) {
+        if (res === 'delete') {
+          this.deleteTask(task._id);
+        } else {
+          const { order, users } = task;
+          this.request
+            .updateTask(this.boardId, this.columnId, task._id, {
+              order,
+              title: res.title,
+              description: res.description,
+              users,
+            })
+            .subscribe((task) => {
+              const idx = this.tasks.findIndex((el) => el._id === task._id);
+              this.tasks[idx] = task;
+            });
+        }
+        // const { order, users } = task;
+        // this.request
+        //   .updateTask(this.boardId, this.columnId, task._id, {
+        //     order,
+        //     title: res.title,
+        //     description: res.description,
+        //     users,
+        //   })
+        //   .subscribe((task) => {
+        //     const idx = this.tasks.findIndex((el) => el._id === task._id);
+        //     this.tasks[idx] = task;
+        //   });
+      }
+    });
   }
 }

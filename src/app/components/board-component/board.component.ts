@@ -3,7 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
-import { CreateBoardComponent } from '../modal-dialogs/create-component';
+import {
+  CreateBoardComponent,
+  DialogDataType,
+} from '../modal-dialogs/create-component';
 
 export interface ColumnType {
   _id: string;
@@ -41,13 +44,12 @@ export class SingleBoard implements OnInit {
   }
 
   addColumn() {
-    console.log('create column', this);
     const refDialog = this.dialog.open<
       CreateBoardComponent,
-      string,
+      DialogDataType,
       { title: string } | null
     >(CreateBoardComponent, {
-      data: 'column',
+      data: { type: 'column' },
     });
     refDialog.afterClosed().subscribe((res) => {
       if (res) {
@@ -60,15 +62,11 @@ export class SingleBoard implements OnInit {
 
   addColClick = this.addColumn.bind(this);
 
-  // deleteTask(ev: CdkDragDrop<any>) {
-  //   console.log('Trash', ev);
-  // }
   checkElement(el: CdkDrag<any>) {
     return !el.data.columnId;
   }
 
   dropColumn(ev: CdkDragDrop<ColumnType[], ColumnType[], string>) {
-    console.log('Board: ', ev);
     this.request.setColumn(ev.item.data, ev.currentIndex).subscribe((col) => {
       moveItemInArray(ev.container.data, ev.previousIndex, ev.currentIndex);
     });

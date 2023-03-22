@@ -6,8 +6,11 @@
 >
   <li *ngFor="let task of tasks" cdkDrag [cdkDragData]="task._id">
     <div>
-      <span class="del" (click)="delTask(task._id)">del</span>
-      {{ task.title }}
+      <mat-icon cdkDragHandle>open_with</mat-icon>
+      <!-- <span class="del" (click)="delTask(task._id)">del</span> -->
+      <span [style.cursor]="'pointer'" (click)="editTask(task)">{{
+        task.title
+      }}</span>
     </div>
   </li>
 </ul>

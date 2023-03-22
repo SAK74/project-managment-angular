@@ -1,6 +1,8 @@
-<mat-card>
-  <mat-card-header cdkDragHandle>
+<mat-card cdkDrag [cdkDragData]="column._id">
+  <mat-card-header>
+    <mat-icon cdkDragHandle>open_with</mat-icon>
     <title-component
+      cdkDragHandle
       [title]="column.title"
       (titleChange)="onSubmit($event)"
     ></title-component>

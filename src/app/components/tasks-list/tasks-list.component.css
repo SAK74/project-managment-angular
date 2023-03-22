@@ -2,10 +2,16 @@
   min-height: 10px;
 }
 
-.cdk-drag {
+.cdk-drag-handle {
   cursor: grab;
+  color: lightgray;
 }
 
 .del {
   cursor: pointer;
+}
+
+ul {
+  padding-inline: 0;
+  list-style: none;
 }
