@@ -1,19 +1,10 @@
-/* .add-new {
-} */
-
 .container {
   display: flex;
 }
 
-mat-card-content {
-  border: thin solid gray;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
-
-mat-icon.trash {
-  font-size: 2rem;
-  overflow: visible;
-}
-
-/* .cdk-drag {
-  cursor: grab;
-} */

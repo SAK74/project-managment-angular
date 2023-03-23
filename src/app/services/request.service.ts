@@ -62,6 +62,10 @@ export class DataRequest {
     return this.http.delete<UserType>(USERURL + `/${id}`);
   }
 
+  updateUser(id: string, user: UserFormType) {
+    return this.http.put<UserType>(USERURL + `/${id}`, user, { headers });
+  }
+
   getBoards() {
     return this.http
       .get<BoardType[]>(boardsURL)
@@ -196,7 +200,6 @@ export class DataRequest {
       { headers }
     );
   }
-  getUserId() {}
 
   handleError(err: HttpErrorResponse) {
     return throwError(() => Error('Something is wrong...'));

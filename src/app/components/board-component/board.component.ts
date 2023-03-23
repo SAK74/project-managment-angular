@@ -1,8 +1,9 @@
 import { CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
+import { ConfirmComponent } from '../modal-dialogs/confirm-component';
 import { CreateBoardComponent } from '../modal-dialogs/create-component';
 import { DialogDataType } from '../modal-dialogs/model';
 
@@ -26,7 +27,8 @@ export class SingleBoard implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private request: DataRequest,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
     route.params.subscribe(({ id }) => {
       this.id = id;
@@ -77,5 +79,18 @@ export class SingleBoard implements OnInit {
 
   deleteColumn(id: string) {
     this.columns = this.columns.filter((col) => col._id !== id);
+  }
+
+  deleteBoard() {
+    this.dialog
+      .open(ConfirmComponent, { data: 'delete this board' })
+      .afterClosed()
+      .subscribe((submit) => {
+        if (submit) {
+          this.request.deleteBoard(this.id).subscribe((board) => {
+            this.router.navigateByUrl('boards');
+          });
+        }
+      });
   }
 }

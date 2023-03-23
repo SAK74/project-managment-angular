@@ -1,4 +1,10 @@
-<h3>Board {{ title }}</h3>
+<div class="header">
+  <h3>Title: {{ title }}</h3>
+  <button mat-stroked-button color="warn" (click)="deleteBoard()">
+    Delete board
+  </button>
+</div>
+
 <div
   class="container"
   cdkDropList

@@ -12,7 +12,8 @@ import { DialogDataType } from './model';
   selector: 'create-element',
   template: `
     <h3 matDialogTitle>
-      {{ data.type === 'edit' ? 'Edit the ' : 'Create a ' }} {{ data.type }}
+      {{ data.type === 'edit' ? 'Edit the ' : 'Create a ' }}
+      {{ data.type === 'edit' ? 'task' : data.type }}
     </h3>
     <mat-dialog-content>
       <form-create-component

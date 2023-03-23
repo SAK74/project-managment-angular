@@ -6,12 +6,16 @@ import { DataRequest, UserType } from 'src/app/services/request.service';
 import { StoreType } from 'src/app/store/model';
 import { ConfirmComponent } from '../modal-dialogs/confirm-component';
 import { SnackBarService } from '../../services/snack-bar.service';
-import { logout } from 'src/app/store/actions';
+import { logout, setUser } from 'src/app/store/actions';
+import { UserFormType } from '../form-component/form-component.component';
 
 @Component({
   selector: 'user-profile',
   template: `<h2>User profile</h2>
-    <form-component type="edit"></form-component>
+    <form-component
+      type="edit"
+      (onSubmit)="updateUser($event)"
+    ></form-component>
     <button mat-button color="warn" (click)="removeUser()">
       Remove user
     </button>`,
@@ -42,5 +46,23 @@ export class UserProfileComponent {
         this.router.navigateByUrl('signup');
       }
     });
+  }
+  updateUser(newUser: Partial<UserFormType>) {
+    this.dialog
+      .open(ConfirmComponent, { data: 'change theese data' })
+      .afterClosed()
+      .subscribe((submit) => {
+        if (submit) {
+          const { login, name, password } = newUser;
+          if (login && name && password) {
+            this.request
+              .updateUser(this.user._id, { login, name, password })
+              .subscribe((user) => {
+                this.store.dispatch(setUser({ user }));
+                this.router.navigateByUrl('boards');
+              });
+          }
+        }
+      });
   }
 }

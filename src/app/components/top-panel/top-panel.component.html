@@ -23,12 +23,12 @@
       >account_circle</mat-icon
     >
     <mat-menu #mat_menu>
-      <div>{{ user$ | async }}</div>
-      <div matRipple class="clickable" (click)="editProfile()">
+      <div mat-menu-item disabled>{{ user$ | async }}</div>
+      <div mat-menu-item matRipple class="clickable" (click)="editProfile()">
         <mat-icon>manage_accounts</mat-icon>
         Edit profile
       </div>
-      <div matRipple class="clickable" (click)="logout()">
+      <div mat-menu-item matRipple class="clickable" (click)="logout()">
         <mat-icon>logout</mat-icon>
         Logout
       </div>
