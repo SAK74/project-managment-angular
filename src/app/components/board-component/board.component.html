@@ -14,5 +14,7 @@
     *ngFor="let column of columns"
     [boardId]="id"
     [column]="column"
-  ></column-component>
+    (onDelete)="deleteColumn($event)"
+  >
+  </column-component>
 </div>

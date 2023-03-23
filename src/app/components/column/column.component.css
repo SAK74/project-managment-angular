@@ -1,3 +1,7 @@
 .cdk-drag-handle {
   cursor: grab;
 }
+
+mat-card-actions {
+  justify-content: flex-end;
+}

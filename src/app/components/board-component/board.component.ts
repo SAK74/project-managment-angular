@@ -74,4 +74,8 @@ export class SingleBoard implements OnInit {
         },
       });
   }
+
+  deleteColumn(id: string) {
+    this.columns = this.columns.filter((col) => col._id !== id);
+  }
 }

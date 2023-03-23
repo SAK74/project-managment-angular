@@ -10,4 +10,9 @@
   <mat-card-content>
     <tasks-list [boardId]="boardId" [columnId]="column._id"></tasks-list>
   </mat-card-content>
+  <mat-card-actions>
+    <button mat-mini-fab (click)="handleDelete()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-actions>
 </mat-card>

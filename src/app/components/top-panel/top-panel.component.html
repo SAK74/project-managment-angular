@@ -19,7 +19,9 @@
       <mat-icon>dashboard</mat-icon>
       Boards</a
     >
-    <mat-icon matRipple [matMenuTriggerFor]="mat_menu">account_circle</mat-icon>
+    <mat-icon [class]="['user-menu']" matRipple [matMenuTriggerFor]="mat_menu"
+      >account_circle</mat-icon
+    >
     <mat-menu #mat_menu>
       <div>{{ user$ | async }}</div>
       <div matRipple class="clickable" (click)="editProfile()">

@@ -113,8 +113,15 @@ export class DataRequest {
 
   deleteColumn(boardId: string, columnId: string) {
     return this.http
-      .delete(boardsURL + `/${boardId}/columns/${columnId}`)
-      .pipe(catchError(this.handleError));
+      .delete<ColumnType>(boardsURL + `/${boardId}/columns/${columnId}`)
+      .pipe(
+        tap({
+          next: ({ title }) => {
+            this.logs.show(`Column ${title} has been deleted`);
+          },
+        }),
+        catchError(this.handleError)
+      );
   }
 
   updateColumn(
