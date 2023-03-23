@@ -10,7 +10,7 @@
   flex-direction: column;
 }
 
-.loading {
+/* .loading {
   backdrop-filter: blur(2px);
   z-index: 9999;
-}
+} */

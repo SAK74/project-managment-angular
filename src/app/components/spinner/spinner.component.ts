@@ -4,7 +4,6 @@ import { SpinnerService } from 'src/app/components/spinner/spinner.service';
 @Component({
   selector: 'spinner-component',
   template: ` <mat-spinner *ngIf="spinner.isLoading"></mat-spinner> `,
-  // providers: [SpinnerService],
   host: { '[class.loading]': 'spinner.isLoading' },
   styles: [
     `
@@ -17,6 +16,11 @@ import { SpinnerService } from 'src/app/components/spinner/spinner.service';
         height: 100%;
         top: 0;
         align-items: center;
+        z-index: -1;
+      }
+      :host.loading {
+        backdrop-filter: blur(2px);
+        z-index: 9999;
       }
     `,
   ],

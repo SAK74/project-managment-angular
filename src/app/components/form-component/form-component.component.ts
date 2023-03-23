@@ -5,7 +5,6 @@ import {
   FormGroup,
   ValidationErrors,
   Validators,
-  // FormBuilder,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { StoreType } from 'src/app/store/model';
@@ -33,11 +32,11 @@ export class FormComponent implements OnInit {
   constructor(private store: Store<StoreType>) {}
   userForm = new FormGroup<UserForm>({
     login: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(4)],
       nonNullable: true,
     }),
     password: new FormControl('', {
-      validators: [Validators.required, pasValidator],
+      validators: [Validators.required, Validators.minLength(6), pasValidator],
       nonNullable: true,
     }),
   });
@@ -60,7 +59,7 @@ export class FormComponent implements OnInit {
       this.userForm.addControl(
         'name',
         new FormControl('', {
-          validators: Validators.required,
+          validators: [Validators.required, Validators.minLength(5)],
           nonNullable: true,
         })
       );
@@ -75,16 +74,42 @@ export class FormComponent implements OnInit {
   handleSubmit(val: typeof this.userForm.value) {
     this.onSubmit.emit(val);
   }
+
   get name() {
     return this.userForm.get('name');
   }
+  get login() {
+    return this.userForm.get('login');
+  }
+  get password() {
+    return this.userForm.get('password');
+  }
+
+  getErrorMessage(name: keyof UserForm) {
+    const field = this.userForm.get(name);
+    if (field?.hasError('required')) {
+      return 'Fill this field';
+    }
+    if (field?.hasError('minlength')) {
+      return `Require ${field.errors?.['minlength']['requiredLength']} symbols`;
+    }
+    if (field?.hasError('passwordFormat')) {
+      return field.errors?.['passwordFormat'];
+    }
+  }
+
   clear() {
-    console.log('cleared'); // dont work...?
     this.userForm.reset();
   }
 }
 
 const pasValidator = (control: AbstractControl): ValidationErrors | null => {
-  const expected = /\d+/.test(control.value);
-  return expected ? null : { passwordFormat: 'at least one digit' };
+  const pattern = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/;
+  const expected = pattern.test(control.value);
+  return expected
+    ? null
+    : {
+        passwordFormat:
+          'require at least one digit, one uppercase, one lowercase',
+      };
 };
