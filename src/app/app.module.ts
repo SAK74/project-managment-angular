@@ -27,28 +27,12 @@ import {
 } from './components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatRippleModule } from '@angular/material/core';
-import { MatMenuModule } from '@angular/material/menu';
-// import {MatSidenavModule} from '@angular/material/sidenav',
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatDialogModule } from '@angular/material/dialog';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatTooltipModule } from '@angular/material/tooltip';
-
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { interceptorsProviders } from './interceptors';
 import { tokenReducer, userReducer } from './store/reducers';
 import { SnackBarService } from './services/snack-bar.service';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -77,24 +61,9 @@ import { SnackBarService } from './services/snack-bar.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     HttpClientModule,
     StoreModule.forRoot({ token: tokenReducer, user: userReducer }, {}),
-    MatRippleModule,
-    MatMenuModule,
-    // MatSidenavModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule,
-    DragDropModule,
-    MatDialogModule,
-    LayoutModule,
-    MatTooltipModule,
+    MaterialModule,
   ],
   providers: [interceptorsProviders, SpinnerService, SnackBarService],
   bootstrap: [AppComponent],
