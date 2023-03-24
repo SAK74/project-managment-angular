@@ -1,24 +1,45 @@
 <mat-toolbar color="primary">
-  <a routerLink="">
-    <mat-icon>home</mat-icon>
-    Home</a
+  <a
+    routerLink=""
+    matTooltip="HOME"
+    [matTooltipDisabled]="screenSize !== 'XSmall'"
   >
+    <mat-icon>home</mat-icon>
+    <span *ngIf="screenSize !== 'XSmall'">Home</span>
+  </a>
+
   <span class="title">{{ title }}</span>
+
   <div *ngIf="!isLogged; else logged">
-    <a *ngIf="path === '/' || path !== '/login'" routerLink="login">
+    <a
+      *ngIf="path === '/' || path !== '/login'"
+      routerLink="login"
+      matTooltip="LOGIN"
+      [matTooltipDisabled]="screenSize !== 'XSmall'"
+    >
       <mat-icon>login</mat-icon>
-      Login</a
+      <span *ngIf="screenSize !== 'XSmall'">Login</span>
+    </a>
+    <a
+      *ngIf="path === '/' || path !== '/signup'"
+      routerLink="signup"
+      matTooltip="SIGN UP"
+      [matTooltipDisabled]="screenSize !== 'XSmall'"
     >
-    <a *ngIf="path === '/' || path !== '/signup'" routerLink="signup">
       <mat-icon>perm_identity</mat-icon>
-      Signup</a
-    >
+      <span *ngIf="screenSize !== 'XSmall'">Signup</span>
+    </a>
   </div>
+
   <ng-template #logged>
-    <a routerLink="/boards">
-      <mat-icon>dashboard</mat-icon>
-      Boards</a
+    <a
+      routerLink="/boards"
+      matTooltip="BOARDS"
+      [matTooltipDisabled]="screenSize !== 'XSmall'"
     >
+      <mat-icon>dashboard</mat-icon>
+      <span *ngIf="screenSize !== 'XSmall'">Boards</span>
+    </a>
     <mat-icon [class]="['user-menu']" matRipple [matMenuTriggerFor]="mat_menu"
       >account_circle</mat-icon
     >

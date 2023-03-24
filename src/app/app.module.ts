@@ -41,6 +41,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
@@ -91,6 +93,8 @@ import { SnackBarService } from './services/snack-bar.service';
     MatProgressSpinnerModule,
     DragDropModule,
     MatDialogModule,
+    LayoutModule,
+    MatTooltipModule,
   ],
   providers: [interceptorsProviders, SpinnerService, SnackBarService],
   bootstrap: [AppComponent],
