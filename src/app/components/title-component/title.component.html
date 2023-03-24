@@ -1,5 +1,10 @@
 <mat-card-title *ngIf="mode === 'show'; else input">{{ title }}</mat-card-title>
-<ng-template #input><input type="text" [formControl]="ctr" /></ng-template>
+
+<ng-template #input>
+  <mat-form-field>
+    <input matInput type="text" [formControl]="ctr" />
+  </mat-form-field>
+</ng-template>
 <button
   mat-icon-button
   (click)="editTitle()"
@@ -8,7 +13,15 @@
   <mat-icon>edit</mat-icon>
 </button>
 <ng-template #submit
-  ><button mat-icon-button (click)="onSubmit()">
-    <mat-icon>done</mat-icon>
-  </button></ng-template
->
+  ><button
+    mat-icon-button
+    color="primary"
+    [disabled]="ctr.invalid"
+    (click)="onSubmit()"
+  >
+    <mat-icon>check_circle_outline</mat-icon>
+  </button>
+  <button mat-icon-button color="warn" (click)="showTitle()">
+    <mat-icon>highlight_off</mat-icon>
+  </button>
+</ng-template>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'title-component',
@@ -9,12 +9,18 @@ export class TitleComponent implements OnInit {
   @Input() title!: string;
   @Output() titleChange = new EventEmitter<string>();
   mode: 'show' | 'edit' = 'show';
-  ctr = new FormControl('', { nonNullable: true });
+  ctr = new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.minLength(3)],
+  });
   ngOnInit(): void {
     this.ctr.setValue(this.title);
   }
   editTitle() {
     this.mode = 'edit';
+  }
+  showTitle() {
+    this.mode = 'show';
   }
   onSubmit() {
     this.titleChange.emit(this.ctr.value);
