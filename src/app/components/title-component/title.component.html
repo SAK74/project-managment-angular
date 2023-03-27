@@ -1,13 +1,15 @@
 <mat-card-header>
-  <mat-card-title *ngIf="mode === 'show'; else input">
-    {{ title }}</mat-card-title
-  >
-
-  <ng-template #input>
+  <mat-card-title>
+    <div *ngIf="mode === 'show'; then titleShow; else input"></div>
+  </mat-card-title>
+  <ng-template #titleShow>{{ title }}</ng-template>
+  <ng-template #input class="edit">
     <mat-form-field>
       <input matInput type="text" [formControl]="ctr" />
+      <mat-error>{{ getError() }}</mat-error>
     </mat-form-field>
   </ng-template>
+
   <button
     mat-icon-button
     (click)="editTitle()"

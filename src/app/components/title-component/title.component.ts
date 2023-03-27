@@ -27,4 +27,11 @@ export class TitleComponent implements OnInit {
     this.titleChange.emit(this.ctr.value);
     this.mode = 'show';
   }
+  getError() {
+    if (this.ctr.hasError('required')) {
+      return 'Required';
+    } else if (this.ctr.hasError('minlength')) {
+      return `Min ${this.ctr.errors!['minlength']['requiredLength']} symb.`;
+    } else return null;
+  }
 }

@@ -1,7 +1,8 @@
-.mat-mdc-card-header-text {
+::ng-deep .mat-mdc-card-header-text {
   overflow: hidden;
 }
 
-.cdk-drag-handle {
-  cursor: grab;
+mat-card-header {
+  justify-content: space-between;
+  align-items: center;
 }
