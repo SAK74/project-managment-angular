@@ -5,13 +5,16 @@
   class="container"
 >
   <li *ngFor="let task of tasks" cdkDrag [cdkDragData]="task._id">
-    <div>
-      <mat-icon cdkDragHandle>open_with</mat-icon>
-      <!-- <span class="del" (click)="delTask(task._id)">del</span> -->
-      <span [style.cursor]="'pointer'" (click)="editTask(task)">{{
-        task.title
-      }}</span>
+    <div class="task-row">
+      <mat-icon cdkDragHandle class="drag-icon">open_with</mat-icon>
+      <span
+        [style.cursor]="'pointer'"
+        (click)="editTask(task)"
+        matTooltip="Edit task"
+        >{{ task.title }}</span
+      >
     </div>
   </li>
 </ul>
-<button (click)="addTask()">add task</button>
+
+<button mat-button color="accent" (click)="addTask()">Add task</button>

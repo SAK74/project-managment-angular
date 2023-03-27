@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'create-card',
   template: `
-    <mat-card (click)="onClick()">
+    <mat-card [matTooltip]="'ADD ' + type.toUpperCase()" (click)="onClick()">
       <mat-icon>add_circle</mat-icon>
     </mat-card>
   `,
@@ -42,4 +42,5 @@ import { Component, Input } from '@angular/core';
 })
 export class CreateCard {
   @Input() onClick!: () => void;
+  @Input() type!: 'board' | 'column';
 }

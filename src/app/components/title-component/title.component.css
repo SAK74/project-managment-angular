@@ -1,0 +1,7 @@
+.mat-mdc-card-header-text {
+  overflow: hidden;
+}
+
+.cdk-drag-handle {
+  cursor: grab;
+}

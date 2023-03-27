@@ -1,16 +1,15 @@
 <mat-card cdkDrag [cdkDragData]="column._id">
-  <mat-card-header>
-    <mat-icon cdkDragHandle>open_with</mat-icon>
-    <title-component
-      cdkDragHandle
-      [title]="column.title"
-      (titleChange)="onSubmit($event)"
-    ></title-component>
-  </mat-card-header>
+  <div class="drop-zone" cdkDragHandle>
+    <mat-icon>open_with</mat-icon>
+  </div>
+  <title-component
+    [title]="column.title"
+    (titleChange)="onSubmit($event)"
+  ></title-component>
   <mat-card-content>
     <tasks-list [boardId]="boardId" [columnId]="column._id"></tasks-list>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions [align]="'start'">
     <button mat-mini-fab (click)="handleDelete()">
       <mat-icon>delete</mat-icon>
     </button>

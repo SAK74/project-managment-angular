@@ -14,7 +14,7 @@
   (cdkDropListDropped)="dropColumn($event)"
   cdkDropListOrientation="horizontal"
 >
-  <create-card [onClick]="addColClick"></create-card>
+  <create-card [onClick]="addColClick" type="column"></create-card>
 
   <column-component
     *ngFor="let column of columns"
