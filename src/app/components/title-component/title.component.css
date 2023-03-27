@@ -10,3 +10,8 @@ mat-card-header {
 .edit-button {
   align-self: flex-start;
 }
+
+:host {
+  max-height: 120px;
+  overflow: auto;
+}
