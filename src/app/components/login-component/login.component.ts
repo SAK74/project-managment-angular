@@ -30,14 +30,6 @@ export class LoginComponent {
           }
         });
 
-        window.sessionStorage.setItem('token', token); //
-        // set user params
-        window.sessionStorage.setItem(
-          'user',
-          JSON.stringify({ login: user.login })
-        ); // temporary
-        window.sessionStorage.setItem('logged', 'true'); //
-
         this.route.navigateByUrl('boards');
       });
     } else {

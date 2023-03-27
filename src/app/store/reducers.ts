@@ -2,10 +2,10 @@ import { createReducer, on } from '@ngrx/store';
 import { logout, setToken, setUser } from './actions';
 
 const initialToken = {
-  token: window.sessionStorage.getItem('token') || '',
-  isLogged: JSON.parse(window.sessionStorage.getItem('logged') || 'false'),
-  // token: '',
-  // isLogged: false,
+  // token: window.sessionStorage.getItem('token') || '',
+  // isLogged: JSON.parse(window.sessionStorage.getItem('logged') || 'false'),
+  token: '',
+  isLogged: false,
 };
 export const tokenReducer = createReducer(
   initialToken,
@@ -14,9 +14,9 @@ export const tokenReducer = createReducer(
 );
 
 const initialUser = {
-  login: 'exampled user',
-  _id: 'exampled_id',
-  name: 'example name',
+  login: '',
+  _id: '',
+  name: '',
 };
 export const userReducer = createReducer(
   initialUser,

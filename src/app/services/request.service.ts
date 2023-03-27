@@ -15,9 +15,8 @@ export interface UserType {
   login: string;
 }
 
-const SERVER = 'http://192.168.0.56:3000';
-// const SERVER = 'http://192.168.64.251:3000';
-// const SERVER = 'https://rs-react-final-task-server.vercel.app/';
+// const SERVER = 'http://192.168.0.56:3000';
+const SERVER = 'https://rs-react-final-task-server.vercel.app/';
 
 const AUTHURL = new URL('auth', SERVER).toString();
 const USERURL = new URL('users', SERVER).toString();

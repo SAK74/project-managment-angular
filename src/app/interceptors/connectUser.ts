@@ -27,8 +27,7 @@ export class UserConnectInterceptor implements HttpInterceptor {
         mergeMap(({ _id }) => {
           const copyReq = req.clone({ body: { ...req.body, userId: _id } });
           return next.handle(copyReq);
-        }),
-        finalize(() => console.log('finish of connect user'))
+        })
       );
     }
     if (req.method === 'POST' && path === '/boards') {

@@ -41,7 +41,6 @@ export class FormCreateComponent implements OnInit {
     }
   }
   handleSubmit() {
-    console.log('submited');
     this.onSubmit.emit(this.createForm.value);
   }
 

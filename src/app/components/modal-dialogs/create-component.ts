@@ -43,7 +43,6 @@ export class CreateBoardComponent {
     private dialog: MatDialog
   ) {}
   onSubmit(form: Partial<CreateTaskType>) {
-    console.log('modal: ', form);
     this.ref.close(form);
   }
   onCancel() {

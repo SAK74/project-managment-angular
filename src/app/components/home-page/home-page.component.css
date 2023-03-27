@@ -8,3 +8,8 @@
 .welcom {
   max-width: 480px;
 }
+
+:host {
+  width: 100%;
+  overflow: hidden;
+}

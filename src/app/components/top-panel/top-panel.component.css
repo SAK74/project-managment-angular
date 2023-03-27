@@ -1,12 +1,9 @@
-.active-link {
-  font-size: 1.5rem;
-}
-a,
-.clickable {
+a {
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  color: black;
 }
 .title {
   flex-grow: 1;

@@ -57,7 +57,6 @@ export class TaskComponent implements OnInit {
       );
   }
   drop(ev: CdkDragDrop<TaskType[], TaskType[], string>) {
-    console.log('Task', ev);
     this.request
       .setTask(ev.item.data, ev.currentIndex, this.columnId)
       .subscribe((tasks) => {
