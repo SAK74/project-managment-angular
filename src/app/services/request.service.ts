@@ -103,13 +103,13 @@ export class DataRequest {
       .get<ColumnType[]>(boardsURL + `/${id}/columns`)
       .pipe(catchError(this.handleError));
   }
-  addColumn(boardId: string, title: string) {
+  addColumn(boardId: string, title: string, order: number) {
     return this.http
       .post<ColumnType>(
         boardsURL + `/${boardId}/columns`,
         {
           title,
-          order: 0,
+          order,
         },
         { headers }
       )

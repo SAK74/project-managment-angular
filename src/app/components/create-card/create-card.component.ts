@@ -13,6 +13,7 @@ import { Component, Input } from '@angular/core';
         cursor: pointer;
         width: 100px;
         height: 100px;
+        flex-shrink: 0;
       }
       mat-card {
         width: 100%;

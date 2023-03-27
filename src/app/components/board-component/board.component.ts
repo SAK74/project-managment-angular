@@ -54,8 +54,8 @@ export class SingleBoard implements OnInit {
     refDialog.afterClosed().subscribe((res) => {
       if (res) {
         this.request
-          .addColumn(this.id, res.title)
-          .subscribe((column) => this.columns?.unshift(column));
+          .addColumn(this.id, res.title, this.columns.length)
+          .subscribe((column) => this.columns?.push(column));
       }
     });
   }

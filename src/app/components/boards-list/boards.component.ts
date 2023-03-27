@@ -55,7 +55,6 @@ export class BoardsComponent implements OnInit {
       });
   }
   createBoard() {
-    console.log('create board', this);
     const createDialog = this.dialog.open<
       CreateBoardComponent,
       DialogDataType,
