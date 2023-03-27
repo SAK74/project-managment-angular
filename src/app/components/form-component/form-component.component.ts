@@ -29,6 +29,7 @@ export class FormComponent implements OnInit {
   @Input() type!: 'login' | 'signup' | 'edit';
   @Output() onSubmit = new EventEmitter<typeof this.userForm.value>();
   title: string = '';
+  passwordType: 'hidden' | 'visible' = 'hidden';
   constructor(private store: Store<StoreType>) {}
   userForm = new FormGroup<UserForm>({
     login: new FormControl('', {
@@ -72,7 +73,9 @@ export class FormComponent implements OnInit {
   }
 
   handleSubmit(val: typeof this.userForm.value) {
-    this.onSubmit.emit(val);
+    if (this.userForm.valid) {
+      this.onSubmit.emit(val);
+    }
   }
 
   get name() {
@@ -100,6 +103,10 @@ export class FormComponent implements OnInit {
 
   clear() {
     this.userForm.reset();
+  }
+
+  changePasswordType() {
+    this.passwordType = this.passwordType === 'hidden' ? 'visible' : 'hidden';
   }
 }
 

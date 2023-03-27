@@ -16,12 +16,37 @@
 
   <mat-form-field [style.marginBottom.px]="20">
     <mat-label>Password</mat-label>
-    <input matInput formControlName="password" />
+    <input
+      matInput
+      formControlName="password"
+      [type]="passwordType === 'visible' ? 'text' : 'password'"
+    />
+    <button mat-icon-button matSuffix (click)="changePasswordType()">
+      <mat-icon>{{
+        passwordType === "hidden" ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
     <mat-error *ngIf="password?.hasError">{{
       getErrorMessage("password")
     }}</mat-error>
   </mat-form-field>
 
-  <button [disabled]="userForm.invalid" type="submit">Submit</button>
-  <button [disabled]="userForm.pristine" (click)="clear()">Clear</button>
+  <div class="control">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="userForm.invalid"
+      type="submit"
+    >
+      Submit
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="userForm.pristine"
+      (click)="clear()"
+    >
+      Clear
+    </button>
+  </div>
 </form>

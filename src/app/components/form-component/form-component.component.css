@@ -4,3 +4,8 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+.control {
+  display: flex;
+  justify-content: space-around;
+}

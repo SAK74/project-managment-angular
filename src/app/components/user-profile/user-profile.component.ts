@@ -11,8 +11,7 @@ import { UserFormType } from '../form-component/form-component.component';
 
 @Component({
   selector: 'user-profile',
-  template: `<h2>User profile</h2>
-    <form-component
+  template: ` <form-component
       type="edit"
       (onSubmit)="updateUser($event)"
     ></form-component>
