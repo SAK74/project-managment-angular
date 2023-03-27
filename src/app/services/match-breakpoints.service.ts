@@ -12,6 +12,7 @@ export const breakpointsMap = {
   [Breakpoints.Medium]: 'Medium',
   [Breakpoints.Large]: 'Large',
   [Breakpoints.XLarge]: 'XLarge',
+  ['(max-width: 480px)']: 'XXSmall',
 } as const;
 
 export type SizeType = typeof breakpointsMap[keyof typeof breakpointsMap];
@@ -26,6 +27,7 @@ export class MatchBreakpoints {
       Breakpoints.Medium,
       Breakpoints.Large,
       Breakpoints.XLarge,
+      '(max-width: 480px)',
     ]);
   }
 }

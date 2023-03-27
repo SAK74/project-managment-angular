@@ -8,7 +8,7 @@
     <span *ngIf="screenSize !== 'XSmall'">Home</span>
   </a>
 
-  <span class="title">{{ title }}</span>
+  <span class="title">{{ screenSize !== "XXSmall" ? title : "" }}</span>
 
   <div *ngIf="!isLogged; else logged">
     <a

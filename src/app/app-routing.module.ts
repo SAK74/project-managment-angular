@@ -5,7 +5,6 @@ import {
   SignupComponent,
   LoginComponent,
   HomePageComponent,
-  UsersComponent,
   BoardsComponent,
   SingleBoard,
   UserProfileComponent,
@@ -20,7 +19,6 @@ const routes: Routes = [
     path: 'signup',
     component: SignupComponent,
   },
-  { path: 'users', component: UsersComponent },
   {
     path: 'boards/:id',
     component: SingleBoard,

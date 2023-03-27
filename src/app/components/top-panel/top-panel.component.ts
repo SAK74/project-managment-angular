@@ -35,9 +35,13 @@ export class TopPanelComponent {
     this.user$ = store.select((state) => state.user.login);
 
     breakpointObserver.observer.subscribe(({ breakpoints }) => {
-      for (const query of Object.keys(breakpoints)) {
-        if (breakpoints[query]) {
-          this.screenSize = breakpointsMap[query];
+      if (breakpoints['(max-width: 480px)']) {
+        this.screenSize = 'XXSmall';
+      } else {
+        for (const query of Object.keys(breakpoints)) {
+          if (breakpoints[query]) {
+            this.screenSize = breakpointsMap[query];
+          }
         }
       }
     });

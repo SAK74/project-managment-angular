@@ -5,7 +5,6 @@ export * from './not-found/not-found.component';
 export * from './footer/footer.component';
 export * from './home-page/home-page.component';
 export * from './form-component/form-component.component';
-export * from './users/users.component';
 export * from './boards-list/boards.component';
 export * from './board-component/board.component';
 export * from './tasks-list/tasks-list.component';
