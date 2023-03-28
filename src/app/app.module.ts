@@ -32,6 +32,7 @@ import { interceptorsProviders } from './interceptors';
 import { langReducer, tokenReducer, userReducer } from './store/reducers';
 import { SnackBarService } from './services/snack-bar.service';
 import { MaterialModule } from './material.module';
+import { TranslatService } from './services/translate.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,12 @@ import { MaterialModule } from './material.module';
     ),
     MaterialModule,
   ],
-  providers: [interceptorsProviders, SpinnerService, SnackBarService],
+  providers: [
+    interceptorsProviders,
+    SpinnerService,
+    SnackBarService,
+    TranslatService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

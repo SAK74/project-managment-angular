@@ -7,8 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { TranslatService } from 'src/app/services/translate.service';
 import { StoreType } from 'src/app/store/model';
-import translator, { LangType } from 'src/languages';
 
 export interface UserForm {
   login: FormControl<string>;
@@ -31,12 +31,10 @@ export class FormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<typeof this.userForm.value>();
   title: string = '';
   passwordType: 'hidden' | 'visible' = 'hidden';
-  language: LangType = 'en';
-  constructor(private store: Store<StoreType>) {
-    store.select('lang').subscribe((lang) => {
-      this.language = lang;
-    });
-  }
+  constructor(
+    private store: Store<StoreType>,
+    private trans: TranslatService
+  ) {}
   userForm = new FormGroup<UserForm>({
     login: new FormControl('', {
       validators: [Validators.required, Validators.minLength(4)],
@@ -97,7 +95,7 @@ export class FormComponent implements OnInit {
   getErrorMessage(name: keyof UserForm) {
     const field = this.userForm.get(name);
     if (field?.hasError('required')) {
-      return translator('Fill this field', this.language);
+      return this.translate('Fill this field');
     }
     if (field?.hasError('minlength')) {
       return `${this.translate('Require')} ${
@@ -118,7 +116,7 @@ export class FormComponent implements OnInit {
   }
 
   translate(text: string) {
-    return translator(text, this.language);
+    return this.trans.translate(text);
   }
 }
 

@@ -1,8 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Store } from '@ngrx/store';
-import { StoreType } from 'src/app/store/model';
-import translator, { LangType } from 'src/languages';
+import { TranslatService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'confirm-component',
@@ -20,15 +18,12 @@ import translator, { LangType } from 'src/languages';
   `,
 })
 export class ConfirmComponent {
-  language: LangType = 'en';
   constructor(
     public ref: MatDialogRef<ConfirmComponent>,
     @Inject(MAT_DIALOG_DATA) public message: string,
-    private store: Store<StoreType>
-  ) {
-    store.select('lang').subscribe((lang) => (this.language = lang));
-  }
+    private transl: TranslatService
+  ) {}
   translate(text: string) {
-    return translator(text, this.language);
+    return this.transl.translate(text);
   }
 }

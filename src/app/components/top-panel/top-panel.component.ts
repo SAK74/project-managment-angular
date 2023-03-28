@@ -8,9 +8,10 @@ import {
   SizeType,
 } from 'src/app/services/match-breakpoints.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { logout, setLang } from 'src/app/store/actions';
+import { TranslatService } from 'src/app/services/translate.service';
+import { logout } from 'src/app/store/actions';
 import { StoreType } from 'src/app/store/model';
-import translator, { LangType } from 'src/languages';
+import { LangType } from 'src/languages';
 
 @Component({
   selector: 'top-panel',
@@ -29,7 +30,8 @@ export class TopPanelComponent {
     private store: Store<StoreType>,
     private snackBar: SnackBarService,
     private router: Router,
-    private breakpointObserver: MatchBreakpoints
+    private breakpointObserver: MatchBreakpoints,
+    private trans: TranslatService
   ) {
     store.select('token').subscribe(({ isLogged }) => {
       this.isLogged = isLogged;
@@ -47,7 +49,6 @@ export class TopPanelComponent {
         }
       }
     });
-    store.select('lang').subscribe((lang) => (this.language = lang));
   }
   logout() {
     this.store.dispatch(logout());
@@ -60,10 +61,11 @@ export class TopPanelComponent {
   }
 
   changeLang(lang: LangType) {
-    this.store.dispatch(setLang({ lang }));
+    this.trans.setLang(lang);
+    this.language = lang;
   }
 
   translate(text: string) {
-    return translator(text, this.language);
+    return this.trans.translate(text);
   }
 }
