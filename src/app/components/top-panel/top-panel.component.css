@@ -9,7 +9,9 @@ a {
   flex-grow: 1;
   margin-inline: 2rem;
 }
-
+.language {
+  text-transform: capitalize;
+}
 .mat-toolbar {
   position: sticky;
   top: 0;

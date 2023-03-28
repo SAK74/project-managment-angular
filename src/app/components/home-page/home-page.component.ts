@@ -5,6 +5,9 @@ import {
   SizeType,
 } from 'src/app/services/match-breakpoints.service';
 import { takeUntil, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { StoreType } from 'src/app/store/model';
+import translator, { LangType } from 'src/languages';
 
 @Component({
   selector: 'home-page',
@@ -13,8 +16,12 @@ import { takeUntil, Subject } from 'rxjs';
   providers: [MatchBreakpoints],
 })
 export class HomePageComponent implements OnDestroy {
+  language: LangType = 'en';
   screenSize: SizeType = 'Large';
-  constructor(private breakpointsObserver: MatchBreakpoints) {
+  constructor(
+    private breakpointsObserver: MatchBreakpoints,
+    private store: Store<StoreType>
+  ) {
     breakpointsObserver.observer
       .pipe(takeUntil(this.destroyed))
       .subscribe(({ breakpoints }) => {
@@ -27,10 +34,15 @@ export class HomePageComponent implements OnDestroy {
             }
           }
       });
+    store.select('lang').subscribe((lang) => (this.language = lang));
   }
   destroyed = new Subject<void>();
   ngOnDestroy(): void {
     this.destroyed.next();
     this.destroyed.complete();
+  }
+
+  translate(text: string) {
+    return translator(text, this.language);
   }
 }

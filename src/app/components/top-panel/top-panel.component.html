@@ -1,57 +1,75 @@
 <mat-toolbar color="primary">
   <a
     routerLink=""
-    matTooltip="HOME"
+    [matTooltip]="translate('Home').toUpperCase()"
     [matTooltipDisabled]="screenSize !== 'XSmall'"
   >
     <mat-icon>home</mat-icon>
-    <span *ngIf="screenSize !== 'XSmall'">Home</span>
+    <span *ngIf="screenSize !== 'XSmall'">{{ translate("Home") }}</span>
   </a>
+
+  <a [matMenuTriggerFor]="langMenu">
+    <mat-icon *ngIf="screenSize !== 'XSmall'">language</mat-icon>
+    <span class="language">{{ language }}</span>
+  </a>
+  <mat-menu #langMenu>
+    <div mat-menu-item (click)="changeLang('en')">
+      English
+      <mat-icon *ngIf="language === 'en'" color="accent">check</mat-icon>
+    </div>
+    <div mat-menu-item (click)="changeLang('pl')">
+      Polski
+      <mat-icon *ngIf="language === 'pl'" color="accent">check</mat-icon>
+    </div>
+  </mat-menu>
 
   <span class="title">{{ screenSize !== "XXSmall" ? title : "" }}</span>
 
-  <div *ngIf="!isLogged; else logged">
+  <div
+    *ngIf="!isLogged; else logged"
+    [ngStyle]="{ display: 'flex', gap: '1rem' }"
+  >
     <a
       *ngIf="path === '/' || path !== '/login'"
       routerLink="login"
-      matTooltip="LOGIN"
+      [matTooltip]="translate('Login').toUpperCase()"
       [matTooltipDisabled]="screenSize !== 'XSmall'"
     >
       <mat-icon>login</mat-icon>
-      <span *ngIf="screenSize !== 'XSmall'">Login</span>
+      <span *ngIf="screenSize !== 'XSmall'">{{ translate("Login") }}</span>
     </a>
     <a
       *ngIf="path === '/' || path !== '/signup'"
       routerLink="signup"
-      matTooltip="SIGN UP"
+      [matTooltip]="translate('Signup').toUpperCase()"
       [matTooltipDisabled]="screenSize !== 'XSmall'"
     >
       <mat-icon>perm_identity</mat-icon>
-      <span *ngIf="screenSize !== 'XSmall'">Signup</span>
+      <span *ngIf="screenSize !== 'XSmall'">{{ translate("Signup") }}</span>
     </a>
   </div>
 
   <ng-template #logged>
     <a
       routerLink="/boards"
-      matTooltip="BOARDS"
+      [matTooltip]="translate('Boards').toUpperCase()"
       [matTooltipDisabled]="screenSize !== 'XSmall'"
     >
       <mat-icon>dashboard</mat-icon>
-      <span *ngIf="screenSize !== 'XSmall'">Boards</span>
+      <span *ngIf="screenSize !== 'XSmall'">{{ translate("Boards") }}</span>
     </a>
     <mat-icon [class]="['user-menu']" matRipple [matMenuTriggerFor]="mat_menu"
       >account_circle</mat-icon
     >
     <mat-menu #mat_menu>
       <div mat-menu-item disabled>{{ user$ | async }}</div>
-      <div mat-menu-item matRipple class="clickable" (click)="editProfile()">
+      <div mat-menu-item (click)="editProfile()">
         <mat-icon>manage_accounts</mat-icon>
-        Edit profile
+        {{ translate("Edit profile") }}
       </div>
-      <div mat-menu-item matRipple class="clickable" (click)="logout()">
+      <div mat-menu-item (click)="logout()">
         <mat-icon>logout</mat-icon>
-        Logout
+        {{ translate("Logout") }}
       </div>
     </mat-menu>
   </ng-template>

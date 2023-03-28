@@ -29,7 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { interceptorsProviders } from './interceptors';
-import { tokenReducer, userReducer } from './store/reducers';
+import { langReducer, tokenReducer, userReducer } from './store/reducers';
 import { SnackBarService } from './services/snack-bar.service';
 import { MaterialModule } from './material.module';
 
@@ -60,7 +60,10 @@ import { MaterialModule } from './material.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({ token: tokenReducer, user: userReducer }, {}),
+    StoreModule.forRoot(
+      { token: tokenReducer, user: userReducer, lang: langReducer },
+      {}
+    ),
     MaterialModule,
   ],
   providers: [interceptorsProviders, SpinnerService, SnackBarService],

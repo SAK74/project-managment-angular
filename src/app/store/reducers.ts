@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { logout, setToken, setUser } from './actions';
+import { logout, setLang, setToken, setUser } from './actions';
 
 const initialToken = {
   // token: window.sessionStorage.getItem('token') || '',
@@ -21,4 +21,9 @@ const initialUser = {
 export const userReducer = createReducer(
   initialUser,
   on(setUser, (state, { user }) => user)
+);
+
+export const langReducer = createReducer(
+  'en',
+  on(setLang, (state, { lang }) => lang)
 );

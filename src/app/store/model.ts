@@ -1,3 +1,4 @@
+import { LangType } from 'src/languages';
 import { UserType } from '../services/request.service';
 
 export interface StoreType {
@@ -6,4 +7,5 @@ export interface StoreType {
     isLogged: boolean;
   };
   user: UserType;
+  lang: LangType;
 }

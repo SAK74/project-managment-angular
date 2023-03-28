@@ -8,8 +8,9 @@ import {
   SizeType,
 } from 'src/app/services/match-breakpoints.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { logout } from 'src/app/store/actions';
+import { logout, setLang } from 'src/app/store/actions';
 import { StoreType } from 'src/app/store/model';
+import translator, { LangType } from 'src/languages';
 
 @Component({
   selector: 'top-panel',
@@ -23,6 +24,7 @@ export class TopPanelComponent {
   isLogged?: boolean;
   user$: Observable<string>;
   screenSize: SizeType = 'Large';
+  language: LangType = 'en';
   constructor(
     private store: Store<StoreType>,
     private snackBar: SnackBarService,
@@ -45,6 +47,7 @@ export class TopPanelComponent {
         }
       }
     });
+    store.select('lang').subscribe((lang) => (this.language = lang));
   }
   logout() {
     this.store.dispatch(logout());
@@ -54,5 +57,13 @@ export class TopPanelComponent {
 
   editProfile() {
     this.router.navigateByUrl('profile');
+  }
+
+  changeLang(lang: LangType) {
+    this.store.dispatch(setLang({ lang }));
+  }
+
+  translate(text: string) {
+    return translator(text, this.language);
   }
 }
