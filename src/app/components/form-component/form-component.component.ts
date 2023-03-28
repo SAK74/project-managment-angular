@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { StoreType } from 'src/app/store/model';
+import translator, { LangType } from 'src/languages';
 
 export interface UserForm {
   login: FormControl<string>;
@@ -30,7 +31,12 @@ export class FormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<typeof this.userForm.value>();
   title: string = '';
   passwordType: 'hidden' | 'visible' = 'hidden';
-  constructor(private store: Store<StoreType>) {}
+  language: LangType = 'en';
+  constructor(private store: Store<StoreType>) {
+    store.select('lang').subscribe((lang) => {
+      this.language = lang;
+    });
+  }
   userForm = new FormGroup<UserForm>({
     login: new FormControl('', {
       validators: [Validators.required, Validators.minLength(4)],
@@ -45,10 +51,10 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     switch (this.type) {
       case 'login':
-        this.title = 'Log in';
+        this.title = 'Login';
         break;
       case 'signup':
-        this.title = 'Sign up';
+        this.title = 'Signup';
         break;
       case 'edit':
         this.title = 'Edit profile';
@@ -91,10 +97,12 @@ export class FormComponent implements OnInit {
   getErrorMessage(name: keyof UserForm) {
     const field = this.userForm.get(name);
     if (field?.hasError('required')) {
-      return 'Fill this field';
+      return translator('Fill this field', this.language);
     }
     if (field?.hasError('minlength')) {
-      return `Require ${field.errors?.['minlength']['requiredLength']} symbols`;
+      return `${this.translate('Require')} ${
+        field.errors?.['minlength']['requiredLength']
+      } ${this.translate('symbols')}`;
     }
     if (field?.hasError('passwordFormat')) {
       return field.errors?.['passwordFormat'];
@@ -107,6 +115,10 @@ export class FormComponent implements OnInit {
 
   changePasswordType() {
     this.passwordType = this.passwordType === 'hidden' ? 'visible' : 'hidden';
+  }
+
+  translate(text: string) {
+    return translator(text, this.language);
   }
 }
 
