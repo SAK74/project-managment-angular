@@ -1,6 +1,6 @@
 <form [formGroup]="createForm" (submit)="handleSubmit()">
   <mat-form-field>
-    <mat-label>{{ type }} title</mat-label>
+    <mat-label>{{ type }} {{ translate("title") }}</mat-label>
     <input matInput formControlName="title" />
     <mat-error *ngIf="createForm.controls.title.invalid">{{
       getError("title")
@@ -8,7 +8,7 @@
   </mat-form-field>
 
   <mat-form-field *ngIf="type === 'task' || type === 'edit'">
-    <mat-label>{{ type }} description</mat-label>
+    <mat-label>{{ type }} {{ translate("description") }}</mat-label>
     <input matInput formControlName="description" />
     <mat-error *ngIf="createForm.controls.description?.invalid">{{
       getError("description")
@@ -16,6 +16,6 @@
   </mat-form-field>
 
   <button mat-button type="submit" [disabled]="createForm.invalid">
-    {{ type === "edit" ? "Edit" : "Create" }}
+    {{ translate(type === "edit" ? "Edit" : "Create") }}
   </button>
 </form>

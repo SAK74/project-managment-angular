@@ -1,9 +1,17 @@
 import { Component, Input } from '@angular/core';
+import { TranslatService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'create-card',
   template: `
-    <mat-card [matTooltip]="'ADD ' + type.toUpperCase()" (click)="onClick()">
+    <mat-card
+      [matTooltip]="
+        translator.translate('ADD') +
+        ' ' +
+        translator.translate(type).toUpperCase()
+      "
+      (click)="onClick()"
+    >
       <mat-icon>add_circle</mat-icon>
     </mat-card>
   `,
@@ -44,4 +52,5 @@ import { Component, Input } from '@angular/core';
 export class CreateCard {
   @Input() onClick!: () => void;
   @Input() type!: 'board' | 'column';
+  constructor(public translator: TranslatService) {}
 }

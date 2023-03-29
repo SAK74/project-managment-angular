@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TranslatService } from 'src/app/services/translate.service';
 import { CreateTaskType } from '../tasks-list/model';
 import { CreatedType } from './model';
 
@@ -16,7 +17,8 @@ export class FormCreateComponent implements OnInit {
   @Input() type!: CreatedType;
   @Input() taskData?: CreateTaskType;
   @Output() onSubmit = new EventEmitter<typeof this.createForm.value>();
-  errorMessage = 'Please fill this field!';
+  constructor(private translator: TranslatService) {}
+  errorMessage = this.translate('Fill this field') + '!';
   createForm = new FormGroup<CreateFormType>({
     title: new FormControl('', {
       validators: [Validators.required, Validators.minLength(3)],
@@ -50,6 +52,12 @@ export class FormCreateComponent implements OnInit {
     }
     const minLength =
       this.createForm.controls[name]?.errors?.['minlength']['requiredLength'];
-    return `Required min ${minLength} letter`;
+    return `${this.translate('Require')} ${minLength} ${this.translate(
+      'symbols'
+    )}`;
+  }
+
+  translate(text: string) {
+    return this.translator.translate(text);
   }
 }

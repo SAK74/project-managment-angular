@@ -4,6 +4,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { TranslatService } from 'src/app/services/translate.service';
 import { CreateTaskType } from '../tasks-list/model';
 import { ConfirmComponent } from './confirm-component';
 import { DialogDataType } from './model';
@@ -12,8 +13,11 @@ import { DialogDataType } from './model';
   selector: 'create-element',
   template: `
     <h3 matDialogTitle>
-      {{ data.type === 'edit' ? 'Edit the ' : 'Create a ' }}
-      {{ data.type === 'edit' ? 'task' : data.type }}
+      {{
+        translator.translate(data.type === 'edit' ? 'Edit the' : 'Create a') +
+          ' '
+      }}
+      {{ translator.translate(data.type === 'edit' ? 'task' : data.type) }}
     </h3>
     <mat-dialog-content>
       <form-create-component
@@ -23,14 +27,16 @@ import { DialogDataType } from './model';
       ></form-create-component>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-raised-button [mat-dialog-close]="null">Cancel</button>
+      <button mat-raised-button [mat-dialog-close]="null">
+        {{ translator.translate('Cancel') }}
+      </button>
       <button
         mat-button
         color="warn"
         *ngIf="data.type === 'edit'"
         (click)="onDelete()"
       >
-        Delete the task
+        {{ translator.translate('Delete the task') }}
       </button>
     </mat-dialog-actions>
   `,
@@ -40,7 +46,8 @@ export class CreateBoardComponent {
     public ref: MatDialogRef<CreateBoardComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: DialogDataType,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public translator: TranslatService
   ) {}
   onSubmit(form: Partial<CreateTaskType>) {
     this.ref.close(form);
@@ -50,7 +57,7 @@ export class CreateBoardComponent {
   }
   onDelete() {
     const confirmDialog = this.dialog.open(ConfirmComponent, {
-      data: 'delete this task',
+      data: this.translator.translate('delete this task'),
     });
     confirmDialog.afterClosed().subscribe((confirm) => {
       if (confirm) {

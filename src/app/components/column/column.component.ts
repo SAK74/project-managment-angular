@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataRequest } from 'src/app/services/request.service';
+import { TranslatService } from 'src/app/services/translate.service';
 import { ColumnType } from '../board-component/board.component';
 import { ConfirmComponent } from '../modal-dialogs/confirm-component';
 
@@ -13,7 +14,11 @@ export class ColumnComponent implements OnInit {
   @Input() boardId!: string;
   @Input() column!: ColumnType;
   @Output() onDelete = new EventEmitter<ColumnType['_id']>();
-  constructor(private request: DataRequest, private dialog: MatDialog) {}
+  constructor(
+    private request: DataRequest,
+    private dialog: MatDialog,
+    private translator: TranslatService
+  ) {}
   ngOnInit() {}
 
   onSubmit(title: string) {
@@ -27,7 +32,7 @@ export class ColumnComponent implements OnInit {
   }
   handleDelete() {
     const confirmDialog = this.dialog.open(ConfirmComponent, {
-      data: 'delete this column',
+      data: this.translator.translate('delete this column'),
     });
     confirmDialog.afterClosed().subscribe((submit) => {
       if (submit) {

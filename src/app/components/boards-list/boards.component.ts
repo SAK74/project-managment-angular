@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
+import { TranslatService } from 'src/app/services/translate.service';
 import { ConfirmComponent } from '../modal-dialogs/confirm-component';
 import { CreateBoardComponent } from '../modal-dialogs/create-component';
 import { DialogDataType } from '../modal-dialogs/model';
@@ -23,7 +24,8 @@ export class BoardsComponent implements OnInit {
   constructor(
     private request: DataRequest,
     private route: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public translator: TranslatService
   ) {}
   ngOnInit(): void {
     this.request.getBoards().subscribe((boards) => (this.boards = boards));
@@ -31,7 +33,7 @@ export class BoardsComponent implements OnInit {
   handleDelete(id: string) {
     const confirmDialog = this.dialog.open<ConfirmComponent, string, boolean>(
       ConfirmComponent,
-      { data: 'delete this board' }
+      { data: this.translator.translate('delete this board') }
     );
     confirmDialog.afterClosed().subscribe((confirm) => {
       if (confirm) {

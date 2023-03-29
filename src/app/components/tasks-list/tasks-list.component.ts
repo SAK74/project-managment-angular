@@ -6,6 +6,7 @@ import {
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataRequest } from 'src/app/services/request.service';
+import { TranslatService } from 'src/app/services/translate.service';
 import { CreateBoardComponent } from '../modal-dialogs/create-component';
 import { DialogDataType } from '../modal-dialogs/model';
 import { CreateTaskType, TaskType } from './model';
@@ -21,7 +22,11 @@ export class TaskComponent implements OnInit {
 
   tasks: TaskType[] = [];
   dropContainersIds: string[] = [];
-  constructor(private request: DataRequest, private dialog: MatDialog) {}
+  constructor(
+    private request: DataRequest,
+    private dialog: MatDialog,
+    private translator: TranslatService
+  ) {}
   ngOnInit(): void {
     this.request
       .getTasks(this.boardId, this.columnId)
@@ -91,7 +96,6 @@ export class TaskComponent implements OnInit {
       },
     });
     modal.afterClosed().subscribe((res) => {
-      console.log('list: ', res);
       if (res) {
         if (res === 'delete') {
           this.deleteTask(task._id);
@@ -111,5 +115,9 @@ export class TaskComponent implements OnInit {
         }
       }
     });
+  }
+
+  translate(text: string) {
+    return this.translator.translate(text);
   }
 }

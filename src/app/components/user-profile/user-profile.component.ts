@@ -8,6 +8,7 @@ import { ConfirmComponent } from '../modal-dialogs/confirm-component';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { logout, setUser } from 'src/app/store/actions';
 import { UserFormType } from '../form-component/form-component.component';
+import { TranslatService } from 'src/app/services/translate.service';
 
 @Component({
   selector: 'user-profile',
@@ -16,7 +17,7 @@ import { UserFormType } from '../form-component/form-component.component';
       (onSubmit)="updateUser($event)"
     ></form-component>
     <button mat-button color="warn" (click)="removeUser()">
-      Remove user
+      {{ translator.translate('Remove user') }}
     </button>`,
 })
 export class UserProfileComponent {
@@ -26,7 +27,8 @@ export class UserProfileComponent {
     private dialog: MatDialog,
     private request: DataRequest,
     private router: Router,
-    private snakBar: SnackBarService
+    private snakBar: SnackBarService,
+    public translator: TranslatService
   ) {
     this.store.select('user').subscribe((user) => {
       this.user = user;

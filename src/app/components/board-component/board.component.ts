@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
+import { TranslatService } from 'src/app/services/translate.service';
 import { ConfirmComponent } from '../modal-dialogs/confirm-component';
 import { CreateBoardComponent } from '../modal-dialogs/create-component';
 import { DialogDataType } from '../modal-dialogs/model';
@@ -28,7 +29,8 @@ export class SingleBoard implements OnInit {
     private route: ActivatedRoute,
     private request: DataRequest,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private translator: TranslatService
   ) {
     route.params.subscribe(({ id }) => {
       this.id = id;
@@ -83,7 +85,7 @@ export class SingleBoard implements OnInit {
 
   deleteBoard() {
     this.dialog
-      .open(ConfirmComponent, { data: 'delete this board' })
+      .open(ConfirmComponent, { data: this.translate('delete this board') })
       .afterClosed()
       .subscribe((submit) => {
         if (submit) {
@@ -92,5 +94,9 @@ export class SingleBoard implements OnInit {
           });
         }
       });
+  }
+
+  translate(text: string) {
+    return this.translator.translate(text);
   }
 }

@@ -10,11 +10,13 @@
       <span
         [style.cursor]="'pointer'"
         (click)="editTask(task)"
-        matTooltip="Edit task"
+        [matTooltip]="translate('Edit task')"
         >{{ task.title }}</span
       >
     </div>
   </li>
 </ul>
 
-<button mat-button color="accent" (click)="addTask()">Add task</button>
+<button mat-button color="accent" (click)="addTask()">
+  {{ translate("Add task") }}
+</button>
