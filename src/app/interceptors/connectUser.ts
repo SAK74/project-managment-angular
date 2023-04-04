@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, mergeMap, first, finalize } from 'rxjs';
+import { Observable, mergeMap, first } from 'rxjs';
 import { StoreType } from '../store/model';
 
 @Injectable()

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   breakpointsMap,
   MatchBreakpoints,
@@ -6,6 +6,9 @@ import {
 } from 'src/app/services/match-breakpoints.service';
 import { takeUntil, Subject } from 'rxjs';
 import { TranslatService } from 'src/app/services/translate.service';
+import { Store } from '@ngrx/store';
+import { StoreType } from 'src/app/store/model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'home-page',
@@ -13,11 +16,14 @@ import { TranslatService } from 'src/app/services/translate.service';
   styleUrls: ['./home-page.component.css'],
   providers: [MatchBreakpoints],
 })
-export class HomePageComponent implements OnDestroy {
+export class HomePageComponent implements OnDestroy, OnInit {
   screenSize: SizeType = 'Large';
+  isLogged = false;
   constructor(
     private breakpointsObserver: MatchBreakpoints,
-    private transl: TranslatService
+    private store: Store<StoreType>,
+    private transl: TranslatService,
+    private router: Router
   ) {
     breakpointsObserver.observer
       .pipe(takeUntil(this.destroyed))
@@ -31,11 +37,19 @@ export class HomePageComponent implements OnDestroy {
             }
           }
       });
+    store
+      .select('token')
+      .subscribe(({ isLogged }) => (this.isLogged = isLogged));
   }
   destroyed = new Subject<void>();
   ngOnDestroy(): void {
     this.destroyed.next();
     this.destroyed.complete();
+  }
+  ngOnInit(): void {
+    if (this.isLogged) {
+      this.router.navigateByUrl('boards');
+    }
   }
 
   translate(text: string) {

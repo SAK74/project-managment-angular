@@ -22,6 +22,8 @@ export class LoginComponent {
     if (user.login && user.password) {
       this.request.login(user.login, user.password).subscribe(({ token }) => {
         this.store.dispatch(setToken({ token }));
+        window.sessionStorage.setItem('token', token);
+        window.sessionStorage.setItem('logged', 'true');
 
         // get user id & username
         this.getUserParams(user.login!).subscribe((user) => {

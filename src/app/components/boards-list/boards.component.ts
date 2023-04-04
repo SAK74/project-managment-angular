@@ -21,9 +21,10 @@ export interface BoardType {
 })
 export class BoardsComponent implements OnInit {
   boards: BoardType[] | null = null;
+  isLogged = false;
   constructor(
     private request: DataRequest,
-    private route: Router,
+    private router: Router,
     private dialog: MatDialog,
     public translator: TranslatService
   ) {}
@@ -46,7 +47,7 @@ export class BoardsComponent implements OnInit {
     });
   }
   handleEdit(id: string) {
-    this.route.navigate(['boards', id]);
+    this.router.navigate(['boards', id]);
   }
   handleTitleChange(title: string, { owner, users, _id }: BoardType) {
     this.request

@@ -52,8 +52,10 @@ export class TopPanelComponent {
   }
   logout() {
     this.store.dispatch(logout());
+    window.sessionStorage.removeItem('token');
+    window.sessionStorage.removeItem('logged');
     this.snackBar.show('You have been logged out');
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('');
   }
 
   editProfile() {
