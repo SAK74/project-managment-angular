@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DataRequest } from 'src/app/services/request.service';
 import { TranslatService } from 'src/app/services/translate.service';
@@ -10,7 +10,7 @@ import { ConfirmComponent } from '../modal-dialogs/confirm-component';
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.css'],
 })
-export class ColumnComponent implements OnInit {
+export class ColumnComponent {
   @Input() boardId!: string;
   @Input() column!: ColumnType;
   @Output() onDelete = new EventEmitter<ColumnType['_id']>();
@@ -19,7 +19,6 @@ export class ColumnComponent implements OnInit {
     private dialog: MatDialog,
     private translator: TranslatService
   ) {}
-  ngOnInit() {}
 
   onSubmit(title: string) {
     this.updateCol(title).subscribe(({ title }) => (this.column.title = title));

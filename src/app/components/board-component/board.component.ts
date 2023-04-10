@@ -1,5 +1,5 @@
 import { CdkDrag, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataRequest } from 'src/app/services/request.service';
@@ -19,7 +19,8 @@ export interface ColumnType {
   selector: 'single-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css'],
-  providers: [DataRequest],
+  // providers: [DataRequest],
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SingleBoard implements OnInit {
   id = '';

@@ -17,7 +17,9 @@ export class FormCreateComponent implements OnInit {
   @Input() type!: CreatedType;
   @Input() taskData?: CreateTaskType;
   @Output() onSubmit = new EventEmitter<typeof this.createForm.value>();
+
   constructor(private translator: TranslatService) {}
+
   errorMessage = this.translate('Fill this field') + '!';
   createForm = new FormGroup<CreateFormType>({
     title: new FormControl('', {
@@ -25,6 +27,7 @@ export class FormCreateComponent implements OnInit {
       nonNullable: true,
     }),
   });
+
   ngOnInit(): void {
     if (this.type === 'task' || this.type === 'edit') {
       this.createForm.addControl(
@@ -42,6 +45,7 @@ export class FormCreateComponent implements OnInit {
       }
     }
   }
+
   handleSubmit() {
     this.onSubmit.emit(this.createForm.value);
   }

@@ -31,10 +31,12 @@ export class FormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<typeof this.userForm.value>();
   title: string = '';
   passwordType: 'hidden' | 'visible' = 'hidden';
+
   constructor(
     private store: Store<StoreType>,
     private trans: TranslatService
   ) {}
+
   userForm = new FormGroup<UserForm>({
     login: new FormControl('', {
       validators: [Validators.required, Validators.minLength(4)],

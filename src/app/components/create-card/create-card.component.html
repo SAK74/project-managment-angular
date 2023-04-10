@@ -1,0 +1,8 @@
+<mat-card
+  [matTooltip]="
+    translator.translate('ADD') + ' ' + translator.translate(type).toUpperCase()
+  "
+  (click)="onClick()"
+>
+  <mat-icon>add_circle</mat-icon>
+</mat-card>
